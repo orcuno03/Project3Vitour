@@ -1,0 +1,13 @@
+﻿namespace Project3Vitour.Dtos.ReviewDtos
+{
+    public class ResultReviewDto
+    {
+        public string ReviewId { get; set; }
+        public string NameSurname { get; set; }
+        public string Detail { get; set; }
+        public string Score { get; set; }
+        public DateTime ReviewDate { get; set; }
+        public bool Status { get; set; }
+        public string TourId { get; set; }
+    }
+}
