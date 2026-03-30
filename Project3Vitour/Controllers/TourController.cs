@@ -24,5 +24,10 @@ namespace Project3Vitour.Controllers
             await _tourService.CreateTourAsync(createTourDto);
             return RedirectToAction("TourList");
         }
+
+        public IActionResult TourList()
+        {
+            return View();
+        }
     }
 }

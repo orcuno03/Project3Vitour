@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.Options;
 using Project3Vitour.Services.CategoryServices;
+using Project3Vitour.Services.TourServices;
 using Project3Vitour.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ITourService, TourService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettingKey"));
