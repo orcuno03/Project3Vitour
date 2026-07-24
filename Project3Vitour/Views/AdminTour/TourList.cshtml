@@ -823,12 +823,8 @@
         });
 
         // Silme onayi
-        const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-
         function openDeleteModal(tourId, tourName) {
-            document.getElementById('deleteTourName').textContent = tourName;
-            document.getElementById('deleteConfirmBtn').href = '/admintour/deletetour/' + tourId;
-            deleteModal.show();
+            confirmDelete('/AdminTour/DeleteTour/' + tourId, tourName);
         }
 
         // Tabloda anlik filtreleme

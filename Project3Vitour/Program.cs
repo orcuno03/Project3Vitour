@@ -25,6 +25,7 @@ builder.Services.AddScoped<ITourPlanService, TourPlanService>();
 builder.Services.AddScoped<ITourImageService, TourImageService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IReservationExportService, ReservationExportService>();
+builder.Services.AddScoped<Project3Vitour.Services.MailServices.IMailService, Project3Vitour.Services.MailServices.MailService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

@@ -753,7 +753,11 @@
                                 }
                             </div>
 
-                            <p class="td-price">@Model.Tour.Price.ToString("N0") &#8378;</p>
+                            @{
+                                var isEnDetail = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase);
+                                var formatDetailFiyat = isEnDetail ? $"${(Model.Tour.Price / 36m):N0}" : $"{Model.Tour.Price:N0} ₺";
+                            }
+                            <p class="td-price">@formatDetailFiyat</p>
                             <p class="td-price-sub">@L["Detail_PerPerson"]</p>
 
                             <ul class="td-facts">

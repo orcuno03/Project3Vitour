@@ -1,0 +1,272 @@
+@{
+    ViewData["Title"] = "Dashboard / Genel Bakış";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+
+    var recentReservations = ViewBag.RecentReservations as List<Project3Vitour.Entities.Reservation> ?? new List<Project3Vitour.Entities.Reservation>();
+    var recentReviews = ViewBag.RecentReviews as List<Project3Vitour.Entities.Review> ?? new List<Project3Vitour.Entities.Review>();
+    var tourDict = ViewBag.TourDict as Dictionary<string, string> ?? new Dictionary<string, string>();
+}
+
+<style>
+    .dash-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .dash-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 22px 24px;
+        box-shadow: 0 4px 14px rgba(13,27,42,.04);
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        transition: transform .2s, box-shadow .2s;
+    }
+
+    .dash-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(13,27,42,.08);
+    }
+
+    .dash-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .dash-icon.blue { background: #e8f3fb; color: #2d9cdb; }
+    .dash-icon.green { background: #e8f8f2; color: #0f7a58; }
+    .dash-icon.orange { background: #fef4e6; color: #b57314; }
+    .dash-icon.purple { background: #f3eefb; color: #7c3aed; }
+
+    .dash-val {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.1;
+        margin-bottom: 4px;
+    }
+
+    .dash-lbl {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    .dash-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+    }
+
+    @@media (max-width: 1199px) {
+        .dash-grid { grid-template-columns: repeat(2, 1fr); }
+        .dash-row { grid-template-columns: 1fr; }
+    }
+
+    @@media (max-width: 575px) {
+        .dash-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Dashboard & Genel Bakış</h1>
+        <p class="section-sub">Tur rezervasyonları, gelir ve sistem istatistiklerinizin özet görünümü.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-controller="AdminReservation" asp-action="ReservationList" class="btn-admin btn-primary-admin">
+            <i class="bi bi-calendar2-check"></i> Rezervasyonları Yönet
+        </a>
+        <a asp-controller="AdminTour" asp-action="CreateTour" class="btn-admin btn-ghost-admin">
+            <i class="bi bi-plus-circle"></i> Yeni Tur Ekle
+        </a>
+    </div>
+</div>
+
+<!-- Stat Kartları -->
+<div class="dash-grid">
+    <div class="dash-card">
+        <div class="dash-icon blue">
+            <i class="bi bi-map"></i>
+        </div>
+        <div>
+            <div class="dash-val">@ViewBag.TotalTourCount</div>
+            <div class="dash-lbl">Aktif Tur Paketleri</div>
+        </div>
+    </div>
+
+    <div class="dash-card">
+        <div class="dash-icon green">
+            <i class="bi bi-cash-stack"></i>
+        </div>
+        <div>
+            <div class="dash-val">@(((decimal)ViewBag.TotalRevenue).ToString("N0")) ₺</div>
+            <div class="dash-lbl">Toplam Onaylı Gelir</div>
+        </div>
+    </div>
+
+    <div class="dash-card">
+        <div class="dash-icon orange">
+            <i class="bi bi-calendar-check"></i>
+        </div>
+        <div>
+            <div class="dash-val">@ViewBag.TotalReservationCount</div>
+            <div class="dash-lbl">Toplam Rezervasyon (@ViewBag.ApprovedReservationCount Onaylı)</div>
+        </div>
+    </div>
+
+    <div class="dash-card">
+        <div class="dash-icon purple">
+            <i class="bi bi-star-fill"></i>
+        </div>
+        <div>
+            <div class="dash-val">@(((double)ViewBag.AvgReviewScore).ToString("F1")) / 5.0</div>
+            <div class="dash-lbl">Ortalama Yorum Puanı (@ViewBag.TotalReviewCount Yorum)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Tablolar ve Detaylar -->
+<div class="dash-row">
+    <!-- Son Rezervasyonlar -->
+    <div class="admin-card">
+        <div class="admin-card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="m-0 font-weight-bold" style="font-size:17px; color:var(--navy);">
+                    <i class="bi bi-clock-history me-1" style="color:var(--accent);"></i> Son Rezervasyon Talepleri
+                </h5>
+                <a asp-controller="AdminReservation" asp-action="ReservationList" class="btn-admin btn-ghost-admin style-sm" style="padding:5px 12px; font-size:12px;">
+                    Tümünü Gör
+                </a>
+            </div>
+
+            <div class="table-scroll">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Müşteri</th>
+                            <th>Tur</th>
+                            <th>Kişi Sayısı</th>
+                            <th>Tarih</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!recentReservations.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">Henüz rezervasyon bulunmuyor.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var res in recentReservations)
+                            {
+                                var turAdi = tourDict.ContainsKey(res.TourId) ? tourDict[res.TourId] : "Bilinmeyen Tur";
+                                string statusBadgeClass = res.ReservationStatus switch
+                                {
+                                    "Onaylandı" => "badge-success",
+                                    "İptal Edildi" => "badge-danger",
+                                    _ => "badge-warning"
+                                };
+
+                                <tr>
+                                    <td>
+                                        <div class="cell-title">@res.NameSurname</div>
+                                        <div class="cell-muted">@res.Email</div>
+                                    </td>
+                                    <td><span class="cell-title">@turAdi</span></td>
+                                    <td><strong>@res.PersonCount Kişi</strong></td>
+                                    <td>@res.ReservationDate.ToString("dd.MM.yyyy")</td>
+                                    <td>
+                                        <span class="badge-pill @statusBadgeClass">@res.ReservationStatus</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistem Özet Kartı ve Son Yorumlar -->
+    <div class="d-flex flex-column gap-4">
+        <!-- Özet Metrikleri -->
+        <div class="admin-card">
+            <div class="admin-card-body">
+                <h5 class="m-0 mb-3 font-weight-bold" style="font-size:17px; color:var(--navy);">
+                    <i class="bi bi-pie-chart-fill me-1" style="color:var(--accent);"></i> Sistem Özetleri
+                </h5>
+                <ul class="list-group list-group-flush" style="font-size:14px;">
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-trophy text-warning me-2"></i> En Popüler Tur:</span>
+                        <strong class="text-primary" style="max-width:180px; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            @ViewBag.PopularTourTitle
+                        </strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-tags text-info me-2"></i> Toplam Kategori:</span>
+                        <strong>@ViewBag.TotalCategoryCount</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-geo-alt text-danger me-2"></i> Toplam Destinasyon:</span>
+                        <strong>@ViewBag.TotalDestinationCount</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-hourglass-split text-warning me-2"></i> Onay Bekleyen Rezervasyon:</span>
+                        <strong class="text-warning">@ViewBag.PendingReservationCount Adet</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Son Yorumlar -->
+        <div class="admin-card">
+            <div class="admin-card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="m-0 font-weight-bold" style="font-size:17px; color:var(--navy);">
+                        <i class="bi bi-chat-left-quote-fill me-1" style="color:var(--accent);"></i> Son Yorumlar
+                    </h5>
+                    <a asp-controller="AdminReview" asp-action="ReviewList" class="btn-admin btn-ghost-admin style-sm" style="padding:5px 12px; font-size:12px;">
+                        Tüm Yorumlar
+                    </a>
+                </div>
+
+                @if (!recentReviews.Any())
+                {
+                    <p class="text-muted text-center py-3 m-0" style="font-size:13px;">Henüz yapılan yorum bulunmuyor.</p>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-3">
+                        @foreach (var rev in recentReviews)
+                        {
+                            var avg = (rev.GuideScore + rev.AccommodationScore + rev.TransportScore + rev.ComfortScore) / 4.0;
+                            <div class="p-3 border rounded-3" style="background:#fcfdfe;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <strong style="font-size:13.5px;">@rev.NameSurname</strong>
+                                    <span class="badge-pill badge-warning" style="font-size:11px;">
+                                        ★ @avg.ToString("F1")
+                                    </span>
+                                </div>
+                                <p class="text-muted mb-0" style="font-size:12.5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+                                    "{rev.Detail}"
+                                </p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

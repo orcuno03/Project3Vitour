@@ -158,13 +158,17 @@
                                     </div>
                                 </div>
 
-                                <div class="flex-two">
-                                    <div class="price-box flex-three">
-                                        <p>
-                                            @L["Tour_Price"]:
-                                            <span class="price-sale">@item.Price.ToString("N0") ₺</span>
-                                        </p>
-                                    </div>
+                                 <div class="flex-two">
+                                     <div class="price-box flex-three">
+                                         <p>
+                                             @L["Tour_Price"]:
+                                             @{
+                                                 var isEn = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase);
+                                                 var formatFiyat = isEn ? $"${(item.Price / 36m):N0}" : $"{item.Price:N0} ₺";
+                                             }
+                                             <span class="price-sale">@formatFiyat</span>
+                                         </p>
+                                     </div>
                                     <div class="icon-bookmark">
                                         <i class="icon-Vector-151"></i>
                                     </div>

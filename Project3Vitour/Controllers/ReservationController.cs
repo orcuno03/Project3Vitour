@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Project3Vitour.Dtos.ReservationDtos;
 using Project3Vitour.Dtos.TourDtos;
 using Project3Vitour.Entities;
+using Project3Vitour.Services.MailServices;
 using Project3Vitour.Services.ReservationServices;
 using Project3Vitour.Services.TourServices;
 
@@ -11,11 +12,16 @@ namespace Project3Vitour.Controllers
     {
         private readonly IReservationService _reservationService;
         private readonly ITourService _tourService;
+        private readonly IMailService _mailService;
 
-        public ReservationController(IReservationService reservationService, ITourService tourService)
+        public ReservationController(
+            IReservationService reservationService,
+            ITourService tourService,
+            IMailService mailService)
         {
             _reservationService = reservationService;
             _tourService = tourService;
+            _mailService = mailService;
         }
 
         [HttpGet]
@@ -83,6 +89,17 @@ namespace Project3Vitour.Controllers
             createReservationDto.ReservationStatus = ReservationStatuses.Pending;
 
             await _reservationService.CreateReservationAsync(createReservationDto);
+
+            // E-posta bildirimi gönder (Arka planda asenkron olarak)
+            var totalPrice = tour.Price * createReservationDto.PersonCount;
+            _ = _mailService.SendReservationConfirmationEmailAsync(
+                createReservationDto.Email,
+                createReservationDto.NameSurname,
+                tour.Title,
+                createReservationDto.ReservationDate ?? DateTime.Now,
+                createReservationDto.PersonCount,
+                totalPrice,
+                createReservationDto.ReservationStatus);
 
             TempData["TourTitle"] = tour.Title;
             TempData["PersonCount"] = createReservationDto.PersonCount;

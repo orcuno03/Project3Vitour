@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Project3Vitour.Dtos.ReservationDtos;
 using Project3Vitour.Entities;
 using Project3Vitour.Services.ExportServices;
+using Project3Vitour.Services.MailServices;
 using Project3Vitour.Services.ReservationServices;
 using Project3Vitour.Services.TourServices;
 
@@ -13,15 +14,18 @@ namespace Project3Vitour.Controllers
         private readonly IReservationService _reservationService;
         private readonly ITourService _tourService;
         private readonly IReservationExportService _exportService;
+        private readonly IMailService _mailService;
 
         public AdminReservationController(
             IReservationService reservationService,
             ITourService tourService,
-            IReservationExportService exportService)
+            IReservationExportService exportService,
+            IMailService mailService)
         {
             _reservationService = reservationService;
             _tourService = tourService;
             _exportService = exportService;
+            _mailService = mailService;
         }
 
         public async Task<IActionResult> ReservationList()
@@ -145,6 +149,11 @@ namespace Project3Vitour.Controllers
                 ReservationStatus = status,
                 TourId = value.TourId
             });
+
+            var tour = await _tourService.GetTourByIdAsync(value.TourId);
+            var tourTitle = tour?.Title ?? "Turumuz";
+
+            _ = _mailService.SendStatusUpdateEmailAsync(value.Email, value.NameSurname, tourTitle, status);
 
             return RedirectToAction("ReservationList");
         }
