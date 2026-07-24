@@ -95,6 +95,12 @@ namespace Project3Vitour.Services.MailServices
 
         private async Task SendEmailAsync(string toEmail, string subject, string htmlBody)
         {
+            _logger.LogInformation("==========================================");
+            _logger.LogInformation("[E-POSTA SİMÜLASYONU & GÖNDERİMİ]");
+            _logger.LogInformation("Alıcı: {ToEmail}", toEmail);
+            _logger.LogInformation("Konu: {Subject}", subject);
+            _logger.LogInformation("==========================================");
+
             try
             {
                 var smtpHost = _configuration["MailSettings:SmtpHost"] ?? "smtp.gmail.com";
@@ -107,6 +113,12 @@ namespace Project3Vitour.Services.MailServices
                 if (string.IsNullOrWhiteSpace(toEmail) || !toEmail.Contains("@"))
                     return;
 
+                if (string.IsNullOrWhiteSpace(senderPassword))
+                {
+                    _logger.LogInformation("[E-POSTA BİLGİSİ] appsettings.json dosyasında SenderPassword girilmediği için gerçek SMTP gönderimi simüle edildi.");
+                    return;
+                }
+
                 using var mailMessage = new MailMessage();
                 mailMessage.From = new MailAddress(senderEmail, "Vitour Turizm");
                 mailMessage.To.Add(toEmail);
@@ -117,19 +129,14 @@ namespace Project3Vitour.Services.MailServices
                 using var smtpClient = new SmtpClient(smtpHost, port);
                 smtpClient.EnableSsl = enableSsl;
                 smtpClient.UseDefaultCredentials = false;
-
-                if (!string.IsNullOrWhiteSpace(senderPassword))
-                {
-                    smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
-                }
+                smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
                 await smtpClient.SendMailAsync(mailMessage);
-                _logger.LogInformation("Email successfully sent to {ToEmail}", toEmail);
+                _logger.LogInformation("Gerçek e-posta başarıyla {ToEmail} adresine gönderildi!", toEmail);
             }
             catch (Exception ex)
             {
-                // Silently log exception so mail failures do not block the main application flow
-                _logger.LogWarning(ex, "Failed to send email to {ToEmail}", toEmail);
+                _logger.LogWarning(ex, "E-posta gönderimi esnasında uyarı: {Message}", ex.Message);
             }
         }
     }

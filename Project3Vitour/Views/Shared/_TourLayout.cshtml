@@ -983,15 +983,18 @@
 
         // DataTables Otomatik Başlatma
         $(document).ready(function() {
-            if ($('.admin-table').length > 0) {
-                $('.admin-table').DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/tr.json'
-                    },
-                    pageLength: 10,
-                    responsive: true,
-                    ordering: true
-                });
+            if (window.jQuery && $.fn.DataTable) {
+                $.fn.dataTable.ext.errMode = 'none'; // Alert pop-up uyarısını engelle
+                if ($('.js-datatable').length > 0) {
+                    $('.js-datatable').DataTable({
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/tr.json'
+                        },
+                        pageLength: 10,
+                        responsive: true,
+                        ordering: true
+                    });
+                }
             }
         });
 
