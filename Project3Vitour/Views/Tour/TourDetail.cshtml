@@ -867,24 +867,29 @@
 
                     <!-- Konum -->
                     <div class="td-panel" id="location">
-                        <h3 class="td-h3">@(Model.DestinationName ?? L["Tab_Location"].Value)</h3>
+                        <h3 class="td-h3">
+                            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                            @(Model.DestinationName ?? L["Tab_Location"].Value)
+                        </h3>
 
-                        @if (!string.IsNullOrWhiteSpace(Model.Tour.MapLocationImageUrl))
-                        {
-                            <div class="td-map-box">
-                                <div class="td-ph"><i class="bi bi-map"></i></div>
-                                <img src="@Model.Tour.MapLocationImageUrl"
-                                     alt="@haritaAlt"
-                                     onerror="this.style.display='none';" />
-                            </div>
+                        @{
+                            var haritaArama = !string.IsNullOrWhiteSpace(Model.DestinationName) 
+                                ? Model.DestinationName 
+                                : Model.Tour.Title;
+                            var mapQuery = System.Net.WebUtility.UrlEncode(haritaArama + ", Türkiye");
+                            var mapEmbedUrl = $"https://maps.google.com/maps?q={mapQuery}&t=&z=11&ie=UTF8&iwloc=&output=embed";
                         }
-                        else
-                        {
-                            <div class="td-note">
-                                <strong>@L["Detail_MapMissing"]</strong><br />
-                                @L["Detail_MapNote"]
-                            </div>
-                        }
+
+                        <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06); height: 420px; width: 100%; position: relative; margin-top: 15px;">
+                            <iframe width="100%" 
+                                    height="420" 
+                                    style="border:0;" 
+                                    loading="lazy" 
+                                    allowfullscreen 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    src="@mapEmbedUrl">
+                            </iframe>
+                        </div>
                     </div>
 
                     <!-- Yorumlar -->
