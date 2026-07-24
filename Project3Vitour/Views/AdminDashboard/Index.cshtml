@@ -1,9 +1,12 @@
+@using Project3Vitour.Dtos.ReservationDtos
+@using Project3Vitour.Dtos.ReviewDtos
+
 @{
     ViewData["Title"] = "Dashboard / Genel Bakış";
     Layout = "~/Views/Shared/_TourLayout.cshtml";
 
-    var recentReservations = ViewBag.RecentReservations as List<Project3Vitour.Entities.Reservation> ?? new List<Project3Vitour.Entities.Reservation>();
-    var recentReviews = ViewBag.RecentReviews as List<Project3Vitour.Entities.Review> ?? new List<Project3Vitour.Entities.Review>();
+    var recentReservations = ViewBag.RecentReservations as List<ResultReservationDto> ?? new List<ResultReservationDto>();
+    var recentReviews = ViewBag.RecentReviews as List<ResultReviewDto> ?? new List<ResultReviewDto>();
     var tourDict = ViewBag.TourDict as Dictionary<string, string> ?? new Dictionary<string, string>();
 }
 
