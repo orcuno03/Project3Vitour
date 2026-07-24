@@ -1,0 +1,59 @@
+@model CreateTourPlanDto
+
+@{
+    ViewData["Title"] = "Yeni Gün Planı";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Yeni Gün Planı</h1>
+        <p class="section-sub">Tur detay sayfasındaki "Tur Programı" sekmesinde görünür</p>
+    </div>
+    <a asp-controller="AdminTourPlan" asp-action="TourPlanList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form method="post">
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label asp-for="TourId" class="form-label-admin">Tur</label>
+                    <select asp-for="TourId" asp-items="ViewBag.Tours" class="form-control-admin">
+                        <option value="">— Tur seçin —</option>
+                    </select>
+                    <span asp-validation-for="TourId" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="DayNumber" class="form-label-admin">Gün Numarası</label>
+                    <input asp-for="DayNumber" type="number" min="1" class="form-control-admin" placeholder="1" />
+                    <span asp-validation-for="DayNumber" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="Title" class="form-label-admin">Başlık</label>
+                    <input asp-for="Title" class="form-control-admin" placeholder="Örn: Varış ve Göreme" />
+                    <span asp-validation-for="Title" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="Description" class="form-label-admin">Açıklama</label>
+                    <textarea asp-for="Description" class="form-control-admin" placeholder="O güne ait programın detaylı anlatımı..."></textarea>
+                    <span asp-validation-for="Description" class="validation-msg"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Kaydet
+                </button>
+                <a asp-controller="AdminTourPlan" asp-action="TourPlanList" class="btn-admin btn-ghost-admin">Vazgeç</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+@model CreateTourImageDto
+
+@{
+    ViewData["Title"] = "Yeni Fotoğraf";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Yeni Fotoğraf</h1>
+        <p class="section-sub">Tur detay sayfasındaki "Galeri" sekmesinde görünür</p>
+    </div>
+    <a asp-controller="AdminTourImage" asp-action="TourImageList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form method="post">
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label asp-for="TourId" class="form-label-admin">Tur</label>
+                    <select asp-for="TourId" asp-items="ViewBag.Tours" class="form-control-admin">
+                        <option value="">— Tur seçin —</option>
+                    </select>
+                    <span asp-validation-for="TourId" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="Title" class="form-label-admin">Başlık</label>
+                    <input asp-for="Title" class="form-control-admin" placeholder="Örn: Peribacaları" />
+                    <span asp-validation-for="Title" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="ImageUrl" class="form-label-admin">Görsel Yolu</label>
+                    <input asp-for="ImageUrl" class="form-control-admin" placeholder="/vitour/assets/images/tour/tour1.jpg" />
+                    <span asp-validation-for="ImageUrl" class="validation-msg"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Kaydet
+                </button>
+                <a asp-controller="AdminTourImage" asp-action="TourImageList" class="btn-admin btn-ghost-admin">Vazgeç</a>
+            </div>
+        </form>
+    </div>
+</div>

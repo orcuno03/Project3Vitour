@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Admin panel: sidebar -->
+  <data name="Menu_ContentManagement"><value>Content Management</value></data>
+  <data name="Menu_Tours"><value>Tours</value></data>
+  <data name="Menu_Categories"><value>Categories</value></data>
+  <data name="Menu_Destinations"><value>Destinations</value></data>
+  <data name="Menu_TourPlans"><value>Tour Plans</value></data>
+  <data name="Menu_TourImages"><value>Tour Gallery</value></data>
+  <data name="Menu_Operations"><value>Operations</value></data>
+  <data name="Menu_Reservations"><value>Reservations</value></data>
+  <data name="Menu_Reviews"><value>Reviews</value></data>
+  <data name="Menu_Site"><value>Site</value></data>
+  <data name="Menu_ViewSite"><value>View Site</value></data>
+  <data name="Menu_Logout"><value>Log Out</value></data>
+
+  <!-- Admin panel: topbar -->
+  <data name="Panel_Title"><value>Admin Panel</value></data>
+  <data name="Topbar_Search"><value>Search the panel…</value></data>
+  <data name="Topbar_Admin"><value>Administrator</value></data>
+  <data name="Topbar_SuperAdmin"><value>Super Admin</value></data>
+  <data name="Topbar_Profile"><value>My Profile</value></data>
+  <data name="Topbar_Settings"><value>Settings</value></data>
+  <data name="Topbar_Language"><value>Language</value></data>
+
+  <!-- Site: tour listing -->
+  <data name="Tour_Showing"><value>Showing</value></data>
+  <data name="Tour_TotalOf"><value>of {0} tours</value></data>
+  <data name="Tour_NoTours"><value>No published tours available.</value></data>
+  <data name="Tour_Days"><value>Days</value></data>
+  <data name="Tour_People"><value>People</value></data>
+  <data name="Tour_Price"><value>Price</value></data>
+  <data name="Tour_NoLocation"><value>No location specified</value></data>
+  <data name="Tour_ReviewCount"><value>Reviews</value></data>
+  <data name="Tour_NoReviews"><value>No reviews yet</value></data>
+
+  <!-- Site: tour detail tabs -->
+  <data name="Tab_Information"><value>Information</value></data>
+  <data name="Tab_TourPlan"><value>Tour Planning</value></data>
+  <data name="Tab_Location"><value>Location</value></data>
+  <data name="Tab_Reviews"><value>Reviews</value></data>
+  <data name="Tab_Gallery"><value>Gallery</value></data>
+
+  <!-- Site: tour detail content -->
+  <data name="Detail_About"><value>About This Tour</value></data>
+  <data name="Detail_DayByDay"><value>Day by Day Itinerary</value></data>
+  <data name="Detail_Day"><value>DAY</value></data>
+  <data name="Detail_Duration"><value>Duration</value></data>
+  <data name="Detail_Category"><value>Category</value></data>
+  <data name="Detail_Capacity"><value>Capacity</value></data>
+  <data name="Detail_Reserved"><value>Booked</value></data>
+  <data name="Detail_PerPerson"><value>per person</value></data>
+  <data name="Detail_SeatsLeft"><value>Only {0} seats left</value></data>
+  <data name="Detail_Full"><value>Fully booked</value></data>
+  <data name="Detail_BookNow"><value>Book Now</value></data>
+  <data name="Detail_NoPlan"><value>No itinerary has been defined for this tour yet.</value></data>
+  <data name="Detail_NoPhotos"><value>No photos have been added for this tour yet.</value></data>
+  <data name="Detail_NoReviewsYet"><value>No reviews for this tour yet. Be the first to write one!</value></data>
+  <data name="Detail_TourGallery"><value>Tour Gallery</value></data>
+  <data name="Detail_MapMissing"><value>The region map has not been uploaded yet.</value></data>
+
+  <!-- Rating parameters -->
+  <data name="Score_Guide"><value>Guide</value></data>
+  <data name="Score_Accommodation"><value>Accommodation</value></data>
+  <data name="Score_Transport"><value>Transport</value></data>
+  <data name="Score_Comfort"><value>Comfort</value></data>
+
+  <!-- Site: main menu -->
+  <data name="Site_Title"><value>Vitour - Tour Packages</value></data>
+  <data name="Nav_Home"><value>Home</value></data>
+  <data name="Nav_Tours"><value>Tours</value></data>
+  <data name="Nav_AllTours"><value>All Tours</value></data>
+  <data name="Nav_Categories"><value>Categories</value></data>
+  <data name="Nav_Destinations"><value>Destinations</value></data>
+  <data name="Header_FollowUs"><value>Follow Us</value></data>
+  <data name="Header_Search"><value>Search tours</value></data>
+
+  <!-- Site: footer -->
+  <data name="Footer_About"><value>We provide safe, comfortable and professional tour services so you can explore the world.</value></data>
+  <data name="Footer_QuickLinks"><value>Quick Links</value></data>
+  <data name="Footer_Categories"><value>Categories</value></data>
+  <data name="Footer_Gallery"><value>Gallery</value></data>
+  <data name="Footer_Rights"><value>All rights reserved.</value></data>
+
+  <!-- Site: page header (breadcrumb) -->
+  <data name="Breadcrumb_Home"><value>Home</value></data>
+  <data name="Breadcrumb_Tours"><value>Tours</value></data>
+
+  <!-- Site: tour listing filter -->
+  <data name="Tour_AllCategories"><value>All Categories</value></data>
+  <data name="Tour_FilteredBy"><value>Category: {0}</value></data>
+  <data name="Tour_ClearFilter"><value>Clear Filter</value></data>
+
+  <!-- Site: tour detail location and reviews -->
+  <data name="Detail_LocationTitle"><value>Region Map</value></data>
+  <data name="Detail_MapNote"><value>The region map for this tour will appear here once it is added from the admin panel.</value></data>
+  <data name="Detail_AverageScore"><value>Average Score</value></data>
+  <data name="Detail_WriteReview"><value>Write a Review</value></data>
+
+  <!-- Site: review form -->
+  <data name="Review_FormTitle"><value>Share Your Experience</value></data>
+  <data name="Review_FormNote"><value>Rate the tour; your review will be published once approved.</value></data>
+  <data name="Review_NameSurname"><value>Full Name</value></data>
+  <data name="Review_Detail"><value>Your Review</value></data>
+  <data name="Review_Submit"><value>Submit Review</value></data>
+  <data name="Review_Received"><value>Your review has been received. It will be published once approved.</value></data>
+  <data name="Review_Invalid"><value>Please fill in every field and rate all four categories.</value></data>
+
+  <!-- Tour badges -->
+  <data name="Badge_Popular"><value>Popular</value></data>
+  <data name="Badge_New"><value>New</value></data>
+  <data name="Badge_Limited"><value>Limited</value></data>
+
+  <!-- Categories -->
+  <data name="Kültür Turu"><value>Culture Tour</value></data>
+  <data name="Doğa &amp; Macera"><value>Nature &amp; Adventure</value></data>
+  <data name="Deniz Tatili"><value>Beach Holiday</value></data>
+  <data name="Şehir Turu"><value>City Tour</value></data>
+  <data name="Kayak Turu"><value>Ski Tour</value></data>
+
+  <!-- Tour Titles -->
+  <data name="Kapadokya Balon ve Peribacaları Turu"><value>Cappadocia Balloon &amp; Fairy Chimneys Tour</value></data>
+  <data name="Efes Antik Kenti &amp; Şirince Kültür Turu"><value>Ephesus Ancient City &amp; Sirince Culture Tour</value></data>
+  <data name="Karadeniz Yaylalar Turu"><value>Black Sea Highlands Tour</value></data>
+  <data name="Fethiye Ölüdeniz Mavi Tur"><value>Fethiye Oludeniz Blue Cruise</value></data>
+  <data name="İstanbul Tarihi Yarımada Turu"><value>Istanbul Historical Peninsula Tour</value></data>
+  <data name="Uludağ Kayak Kampı"><value>Uludag Ski Camp</value></data>
+  <data name="Antalya Antik Kentler Turu"><value>Antalya Ancient Cities Tour</value></data>
+  <data name="Çanakkale ve Truva Turu"><value>Canakkale &amp; Troy Tour</value></data>
+  <data name="Mardin &amp; Midyat Taş Evler Turu"><value>Mardin &amp; Midyat Stone Houses Tour</value></data>
+  <data name="Kars Doğu Ekspresi ve Ani Harabeleri"><value>Kars Eastern Express &amp; Ani Ruins</value></data>
+  <data name="Ayvalık &amp; Cunda Adası Turu"><value>Ayvalik &amp; Cunda Island Tour</value></data>
+  <data name="Kaş Dalış ve Batık Şehir Turu"><value>Kas Scuba Diving &amp; Sunken City Tour</value></data>
+
+  <!-- Locations -->
+  <data name="Nevşehir, Türkiye"><value>Nevsehir, Turkey</value></data>
+  <data name="İzmir, Türkiye"><value>Izmir, Turkey</value></data>
+  <data name="Rize, Türkiye"><value>Rize, Turkey</value></data>
+  <data name="Muğla, Türkiye"><value>Mugla, Turkey</value></data>
+  <data name="İstanbul, Türkiye"><value>Istanbul, Turkey</value></data>
+  <data name="Bursa, Türkiye"><value>Bursa, Turkey</value></data>
+  <data name="Antalya, Türkiye"><value>Antalya, Turkey</value></data>
+  <data name="Çanakkale, Türkiye"><value>Canakkale, Turkey</value></data>
+  <data name="Mardin, Türkiye"><value>Mardin, Turkey</value></data>
+  <data name="Kars, Türkiye"><value>Kars, Turkey</value></data>
+  <data name="Ayvalık, Türkiye"><value>Ayvalik, Turkey</value></data>
+  <data name="Kaş, Türkiye"><value>Kas, Turkey</value></data>
+</root>

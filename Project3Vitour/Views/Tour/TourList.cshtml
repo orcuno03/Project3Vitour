@@ -33,11 +33,16 @@
             
             <main id="main">
 
+                @* Layout temizligi: tanitim/arama widget bloklari kaldirildi,
+                   sayfada yalnizca header, tur listesi ve footer birakildi. *@
+
                 @await Component.InvokeAsync("_TourBreadCrumdComponentPartial")
 
-                @await Component.InvokeAsync("_TourWidgetSelectComponentPartial")
-
-                @await Component.InvokeAsync("_AllTourListComponentPartial")
+                @await Component.InvokeAsync("_AllTourListComponentPartial", new
+                {
+                    page = (int)(ViewBag.Page ?? 1),
+                    categoryId = (string)ViewBag.CategoryId
+                })
 
             </main>
 

@@ -1,0 +1,79 @@
+@model List<ResultTourImageDto>
+
+@{
+    ViewData["Title"] = "Tur Galerisi";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+
+    var tourTitles = ViewBag.TourTitles as Dictionary<string, string> ?? new Dictionary<string, string>();
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Tur Galerisi</h1>
+        <p class="section-sub">Toplam @Model.Count fotoğraf kayıtlı</p>
+    </div>
+    <a asp-controller="AdminTourImage" asp-action="CreateTourImage" class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i> Yeni Fotoğraf
+    </a>
+</div>
+
+<div class="admin-card">
+    @if (!Model.Any())
+    {
+        <div class="empty-state-admin">
+            <i class="bi bi-images"></i>
+            Henüz fotoğraf eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="table-scroll">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width:80px;">Önizleme</th>
+                        <th>Başlık</th>
+                        <th>Tur</th>
+                        <th>Görsel Yolu</th>
+                        <th style="width:120px;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var turAdi = tourTitles.ContainsKey(item.TourId) ? tourTitles[item.TourId] : "Silinmiş tur";
+
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.Title" class="thumb" />
+                                }
+                                else
+                                {
+                                    <span class="cell-muted">—</span>
+                                }
+                            </td>
+                            <td class="cell-title">@item.Title</td>
+                            <td><span class="badge-pill badge-info"><i class="bi bi-map"></i> @turAdi</span></td>
+                            <td class="cell-muted">@item.ImageUrl</td>
+                            <td>
+                                <div class="row-actions">
+                                    <a asp-controller="AdminTourImage" asp-action="UpdateTourImage" asp-route-id="@item.TourImageId"
+                                       class="btn-icon edit" title="Düzenle">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-controller="AdminTourImage" asp-action="DeleteTourImage" asp-route-id="@item.TourImageId"
+                                       class="btn-icon delete" title="Sil"
+                                       onclick="return confirm('Bu fotoğrafı silmek istediğinize emin misiniz?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

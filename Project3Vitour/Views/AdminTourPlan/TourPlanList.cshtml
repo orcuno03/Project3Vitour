@@ -1,0 +1,82 @@
+@model List<ResultTourPlanDto>
+
+@{
+    ViewData["Title"] = "Tur Programları";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+
+    var tourTitles = ViewBag.TourTitles as Dictionary<string, string> ?? new Dictionary<string, string>();
+    // Once tura, sonra gun numarasina gore grupla
+    var gruplar = Model.GroupBy(x => x.TourId).ToList();
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Tur Programları</h1>
+        <p class="section-sub">@Model.Count gün planı, @gruplar.Count tur için tanımlı</p>
+    </div>
+    <a asp-controller="AdminTourPlan" asp-action="CreateTourPlan" class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i> Yeni Gün Planı
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="admin-card">
+        <div class="empty-state-admin">
+            <i class="bi bi-calendar3-week"></i>
+            Henüz gün planı eklenmemiş.
+        </div>
+    </div>
+}
+else
+{
+    @foreach (var grup in gruplar)
+    {
+        var turAdi = tourTitles.ContainsKey(grup.Key) ? tourTitles[grup.Key] : "Silinmiş tur";
+
+        <div class="admin-card" style="margin-bottom:18px;">
+            <div class="admin-card-body" style="padding-bottom:0;">
+                <h2 style="font-size:15px; font-weight:700; color:var(--navy); margin:0 0 4px;">
+                    <i class="bi bi-map-fill" style="color:var(--accent);"></i> @turAdi
+                </h2>
+                <p class="cell-muted" style="margin:0 0 14px;">@grup.Count() gün</p>
+            </div>
+
+            <div class="table-scroll">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th style="width:70px;">Gün</th>
+                            <th style="width:220px;">Başlık</th>
+                            <th>Açıklama</th>
+                            <th style="width:120px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in grup.OrderBy(x => x.DayNumber))
+                        {
+                            <tr>
+                                <td><span class="badge-pill badge-info">@item.DayNumber. Gün</span></td>
+                                <td class="cell-title">@item.Title</td>
+                                <td class="cell-muted">@item.Description</td>
+                                <td>
+                                    <div class="row-actions">
+                                        <a asp-controller="AdminTourPlan" asp-action="UpdateTourPlan" asp-route-id="@item.TourPlanId"
+                                           class="btn-icon edit" title="Düzenle">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-controller="AdminTourPlan" asp-action="DeleteTourPlan" asp-route-id="@item.TourPlanId"
+                                           class="btn-icon delete" title="Sil"
+                                           onclick="return confirm('Bu gün planını silmek istediğinize emin misiniz?');">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}

@@ -1,13 +1,13 @@
-﻿@model GetTourByIdDto
+@model UpdateTourDto
 
 @{
-    ViewData["Title"] = "UpdateTour";
+    ViewData["Title"] = "Tur Düzenle";
     Layout = "~/Views/Shared/_TourLayout.cshtml";
 }
 
 @section Styles {
 <style>
-    /* ─── Page Header ───────────────────────────────────── */
+    /* Sayfa başlığı */
     .section-header {
         display: flex;
         align-items: flex-start;
@@ -51,7 +51,7 @@
         border-color: #c4cdd9;
     }
 
-    /* ─── Edit Mode Banner ───────────────────────────────── */
+    /* Düzenleme bilgi şeridi */
     .edit-banner {
         display: flex;
         align-items: center;
@@ -95,7 +95,7 @@
         white-space: nowrap;
     }
 
-    /* ─── Form Grid ──────────────────────────────────────── */
+    /* Form yerleşimi */
     .form-grid {
         display: grid;
         grid-template-columns: 1fr 340px;
@@ -107,7 +107,7 @@
         .form-grid { grid-template-columns: 1fr; }
     }
 
-    /* ─── Form Cards ─────────────────────────────────────── */
+    /* Form kartları */
     .form-card {
         background: #fff;
         border: 1px solid var(--border);
@@ -158,7 +158,7 @@
 
     .form-card-body { padding: 24px; }
 
-    /* ─── Form Controls ──────────────────────────────────── */
+    /* Form alanları */
     .form-label-custom {
         display: block;
         font-size: 13px;
@@ -257,7 +257,7 @@
         display: none;
     }
 
-    /* ─── Number Stepper ─────────────────────────────────── */
+    /* Sayı artırma alanı */
     .number-stepper {
         display: flex;
         align-items: center;
@@ -309,7 +309,7 @@
     .stepper-input::-webkit-inner-spin-button,
     .stepper-input::-webkit-outer-spin-button { -webkit-appearance: none; }
 
-    /* ─── Price Input ────────────────────────────────────── */
+    /* Fiyat alanı */
     .price-wrapper { position: relative; }
 
     .price-prefix {
@@ -329,7 +329,7 @@
 
     .price-input { padding-left: 54px !important; }
 
-    /* ─── Badge Selector ─────────────────────────────────── */
+    /* Rozet seçimi */
     .badge-selector {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -381,7 +381,7 @@
     .bd-limited { background: #ef4444; }
     .bd-none    { background: #94a3b8; }
 
-    /* ─── Status Toggle ──────────────────────────────────── */
+    /* Yayın durumu anahtarı */
     .status-toggle-wrap {
         display: flex;
         align-items: center;
@@ -450,7 +450,7 @@
     .toggle-switch input:checked + .toggle-track { background: var(--success); }
     .toggle-switch input:checked + .toggle-track::after { transform: translateX(22px); }
 
-    /* ─── Image Preview ──────────────────────────────────── */
+    /* Görsel önizleme */
     .image-preview-box {
         width: 100%;
         height: 180px;
@@ -498,7 +498,7 @@
     .preview-placeholder i { font-size: 32px; color: #cbd5e1; }
     .image-preview-box.has-image .preview-placeholder { opacity: 0; }
 
-    /* ─── Changes tracker ────────────────────────────────── */
+    /* Değişiklik takibi */
     .changes-card {
         background: #fff;
         border: 1px solid var(--border);
@@ -558,7 +558,7 @@
         gap: 6px;
     }
 
-    /* ─── Submit buttons ─────────────────────────────────── */
+    /* Kaydet bölümü */
     .submit-card {
         background: #fff;
         border: 1px solid var(--border);
@@ -614,7 +614,7 @@
 
     .btn-cancel-submit:hover { background: var(--surface); color: var(--navy); }
 
-    /* ─── Tips card ──────────────────────────────────────── */
+    /* İpuçları kartı */
     .tips-card {
         background: linear-gradient(135deg, #0d1b2a 0%, #1a3358 100%);
         border-radius: 16px;
@@ -655,50 +655,49 @@
 </style>
 }
 
-<!-- ═══ PAGE HEADER ═══════════════════════════════════════════════════ -->
+<!-- Sayfa başlığı -->
 <div class="section-header">
     <div>
         <p class="page-eyebrow">Tur Yönetimi</p>
         <h1 class="page-title">Turu Güncelle</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin" class="text-muted">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/admin/tours" class="text-muted">Turlar</a></li>
+                <li class="breadcrumb-item text-muted">Yönetim Paneli</li>
+                <li class="breadcrumb-item"><a asp-controller="AdminTour" asp-action="TourList" class="text-muted">Turlar</a></li>
                 <li class="breadcrumb-item active text-muted">Güncelle</li>
             </ol>
         </nav>
     </div>
-    <a href="/admin/tours" class="btn-back">
+    <a asp-controller="AdminTour" asp-action="TourList" class="btn-back">
         <i class="bi bi-arrow-left"></i>
         Listeye Dön
     </a>
 </div>
 
-<!-- ═══ EDIT MODE BANNER ══════════════════════════════════════════════ -->
+<!-- Düzenleme bilgi şeridi -->
 <div class="edit-banner">
     <div class="edit-banner-icon">
         <i class="bi bi-pencil-fill"></i>
     </div>
     <div class="edit-banner-text">
-        <div class="edit-banner-title">Düzenleme Modu — @Model.Title</div>
+        <div class="edit-banner-title">Düzenleme Modu - @Model.Title</div>
         <div class="edit-banner-sub">Değişiklikleriniz kaydedilene kadar uygulanmaz.</div>
     </div>
     <span class="edit-banner-id d-none d-sm-block">ID: @Model.TourId</span>
 </div>
 
-<!-- ═══ FORM ══════════════════════════════════════════════════════════ -->
+<!-- Tur güncelleme formu -->
 <form method="post" id="updateTourForm" novalidate>
     @Html.AntiForgeryToken()
 
-    <!-- Hidden TourId -->
     <input asp-for="TourId" type="hidden" />
 
     <div class="form-grid">
 
-        <!-- ══ LEFT COLUMN ════════════════════════════════════════════ -->
+        <!-- Sol sütun -->
         <div>
 
-            <!-- ── Temel Bilgiler ─────────────────────────────────── -->
+            <!-- Temel bilgiler -->
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon fci-blue">
@@ -711,7 +710,6 @@
                 </div>
                 <div class="form-card-body">
 
-                    <!-- Tur Adı -->
                     <div class="mb-4">
                         <label class="form-label-custom" for="Title">
                             Tur Adı <span class="required">*</span>
@@ -723,6 +721,7 @@
                                    class="form-control-custom with-icon"
                                    placeholder="Örn: Kapadokya Balon Turu"
                                    maxlength="100"
+                                   required
                                    autocomplete="off"
                                    data-original="@Model.Title" />
                         </div>
@@ -730,7 +729,6 @@
                         <span asp-validation-for="Title" class="validation-msg" style="display:block;"></span>
                     </div>
 
-                    <!-- Açıklama -->
                     <div class="mb-0">
                         <label class="form-label-custom" for="Description">
                             Tur Açıklaması <span class="required">*</span>
@@ -739,8 +737,9 @@
                         <textarea asp-for="Description"
                                   id="Description"
                                   class="form-control-custom"
-                                  placeholder="Tur hakkında kısa bir açıklama yazın…"
+                                  placeholder="Tur hakkında kısa bir açıklama yazın"
                                   maxlength="500"
+                                  required
                                   rows="4"
                                   data-original="@Model.Description"></textarea>
                         <div class="char-counter" id="descCounter">0 / 500</div>
@@ -750,7 +749,7 @@
                 </div>
             </div>
 
-            <!-- ── Tur Detayları ───────────────────────────────────── -->
+            <!-- Tur detayları -->
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon fci-purple">
@@ -764,7 +763,6 @@
                 <div class="form-card-body">
                     <div class="row g-4">
 
-                        <!-- Gün Sayısı -->
                         <div class="col-sm-6">
                             <label class="form-label-custom" for="DayCount">
                                 Tur Süresi <span class="required">*</span>
@@ -778,16 +776,16 @@
                                        class="stepper-input"
                                        type="number"
                                        min="1" max="365"
+                                       required
                                        data-original="@Model.DayCount" />
                                 <button type="button" class="stepper-btn" onclick="stepValue('DayCount', 1, 1, 365)">
                                     <i class="bi bi-plus"></i>
                                 </button>
                             </div>
-                            <p class="field-hint"><i class="bi bi-info-circle"></i> Gün cinsinden süre (1–365)</p>
+                            <p class="field-hint"><i class="bi bi-info-circle"></i> Gün cinsinden süre (1-365)</p>
                             <span asp-validation-for="DayCount" class="validation-msg" style="display:block;"></span>
                         </div>
 
-                        <!-- Kapasite -->
                         <div class="col-sm-6">
                             <label class="form-label-custom" for="Capacity">
                                 Kapasite <span class="required">*</span>
@@ -801,6 +799,7 @@
                                        class="stepper-input"
                                        type="number"
                                        min="1" max="999"
+                                       required
                                        data-original="@Model.Capacity" />
                                 <button type="button" class="stepper-btn" onclick="stepValue('Capacity', 1, 1, 999)">
                                     <i class="bi bi-plus"></i>
@@ -810,18 +809,18 @@
                             <span asp-validation-for="Capacity" class="validation-msg" style="display:block;"></span>
                         </div>
 
-                        <!-- Fiyat -->
                         <div class="col-12">
                             <label class="form-label-custom" for="Price">
-                                Fiyat (USD) <span class="required">*</span>
+                                Fiyat (₺) <span class="required">*</span>
                             </label>
                             <div class="price-wrapper">
-                                <span class="price-prefix">$</span>
+                                <span class="price-prefix">₺</span>
                                 <input asp-for="Price"
                                        id="Price"
                                        class="form-control-custom price-input"
                                        type="number"
-                                       min="0" step="0.01"
+                                       min="1" step="0.01"
+                                       required
                                        placeholder="0.00"
                                        data-original="@Model.Price" />
                             </div>
@@ -833,7 +832,7 @@
                 </div>
             </div>
 
-            <!-- ── Kapak Görseli ───────────────────────────────────── -->
+            <!-- Kapak görseli -->
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon fci-yellow">
@@ -862,25 +861,71 @@
                         <input asp-for="CoverImageUrl"
                                id="CoverImageUrl"
                                class="form-control-custom with-icon"
-                               placeholder="https://example.com/image.jpg"
+                               placeholder="/vitour/assets/images/tour/kapadokya.jpg"
+                               required
                                autocomplete="off"
                                data-original="@Model.CoverImageUrl" />
                     </div>
                     <p class="field-hint">
                         <i class="bi bi-info-circle"></i>
-                        Geçerli bir görsel URL'i girin. Önerilen boyut: 1200×800px
+                        Geçerli bir görsel yolu girin. Önerilen boyut: 1200x800px
                     </p>
                     <span asp-validation-for="CoverImageUrl" class="validation-msg" style="display:block;"></span>
 
                 </div>
             </div>
 
-        </div><!-- /left column -->
+            <!-- Sınıflandırma ve konum -->
+            <div class="form-card">
+                <div class="form-card-header">
+                    <div class="form-card-icon fci-yellow">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div>
+                        <p class="form-card-title">Sınıflandırma ve Konum</p>
+                        <p class="form-card-subtitle">Turun kategorisi, lokasyonu ve bölge haritası</p>
+                    </div>
+                </div>
+                <div class="form-card-body">
 
-        <!-- ══ RIGHT COLUMN ═══════════════════════════════════════════ -->
+                    <label class="form-label-custom" for="CategoryId">Kategori</label>
+                    <select asp-for="CategoryId" id="CategoryId" asp-items="ViewBag.Categories" class="form-control-custom">
+                        <option value="">Kategori seçin</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="validation-msg" style="display:block;"></span>
+
+                    <label class="form-label-custom" for="DestinationId" style="margin-top:18px;">Lokasyon</label>
+                    <select asp-for="DestinationId" id="DestinationId" asp-items="ViewBag.Destinations" class="form-control-custom">
+                        <option value="">Lokasyon seçin</option>
+                    </select>
+                    <span asp-validation-for="DestinationId" class="validation-msg" style="display:block;"></span>
+
+                    <label class="form-label-custom" for="MapLocationImageUrl" style="margin-top:18px;">
+                        Bölge Haritası Görseli
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-map input-icon"></i>
+                        <input asp-for="MapLocationImageUrl"
+                               id="MapLocationImageUrl"
+                               class="form-control-custom with-icon"
+                               placeholder="/vitour/assets/images/map/kapadokya.jpg"
+                               autocomplete="off" />
+                    </div>
+                    <p class="field-hint">
+                        <i class="bi bi-info-circle"></i>
+                        Bölge haritası görselinin yolu (örn: /vitour/assets/images/map/kapadokya.jpg).
+                    </p>
+                    <span asp-validation-for="MapLocationImageUrl" class="validation-msg" style="display:block;"></span>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sağ sütun -->
         <div>
 
-            <!-- ── Değişiklik Takibi ───────────────────────────────── -->
+            <!-- Değiştirilen alanlar -->
             <div class="changes-card">
                 <div class="changes-title">
                     <i class="bi bi-pencil-square"></i>
@@ -926,7 +971,7 @@
                 </p>
             </div>
 
-            <!-- ── Rozet ──────────────────────────────────────────── -->
+            <!-- Rozet -->
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon fci-orange">
@@ -941,8 +986,7 @@
                     <div class="badge-selector">
 
                         <div class="badge-option">
-                            <input type="radio" asp-for="Badge" value="" id="badge-none"
-                                   @@(string.IsNullOrEmpty(Model.Badge) ? "checked" : "") />
+                            <input type="radio" asp-for="Badge" value="" id="badge-none" />
                             <label for="badge-none">
                                 <span class="badge-dot bd-none"></span>
                                 Yok
@@ -950,8 +994,7 @@
                         </div>
 
                         <div class="badge-option">
-                            <input type="radio" asp-for="Badge" value="Popular" id="badge-popular"
-                                   @@(Model.Badge == "Popular" ? "checked" : "") />
+                            <input type="radio" asp-for="Badge" value="Popular" id="badge-popular" />
                             <label for="badge-popular">
                                 <span class="badge-dot bd-popular"></span>
                                 Popüler
@@ -959,8 +1002,7 @@
                         </div>
 
                         <div class="badge-option">
-                            <input type="radio" asp-for="Badge" value="New" id="badge-new"
-                                   @@(Model.Badge == "New" ? "checked" : "") />
+                            <input type="radio" asp-for="Badge" value="New" id="badge-new" />
                             <label for="badge-new">
                                 <span class="badge-dot bd-new"></span>
                                 Yeni
@@ -968,8 +1010,7 @@
                         </div>
 
                         <div class="badge-option">
-                            <input type="radio" asp-for="Badge" value="Limited" id="badge-limited"
-                                   @@(Model.Badge == "Limited" ? "checked" : "") />
+                            <input type="radio" asp-for="Badge" value="Limited" id="badge-limited" />
                             <label for="badge-limited">
                                 <span class="badge-dot bd-limited"></span>
                                 Sınırlı
@@ -981,7 +1022,7 @@
                 </div>
             </div>
 
-            <!-- ── Yayın Durumu ────────────────────────────────────── -->
+            <!-- Yayın durumu -->
             <div class="form-card">
                 <div class="form-card-header">
                     <div class="form-card-icon fci-green">
@@ -1020,18 +1061,18 @@
                 </div>
             </div>
 
-            <!-- ── Güncelle / İptal ───────────────────────────────── -->
+            <!-- Güncelle / iptal -->
             <div class="submit-card">
                 <button type="submit" class="btn-submit-update" id="submitBtn">
                     <i class="bi bi-arrow-clockwise"></i>
                     Değişiklikleri Kaydet
                 </button>
-                <a href="/admin/tours" class="btn-cancel-submit">
+                <a asp-controller="AdminTour" asp-action="TourList" class="btn-cancel-submit">
                     <i class="bi bi-x-circle me-1"></i> İptal Et
                 </a>
             </div>
 
-            <!-- ── İpuçları ───────────────────────────────────────── -->
+            <!-- İpuçları -->
             <div class="tips-card">
                 <div class="tips-title">
                     <i class="bi bi-lightbulb-fill"></i>
@@ -1055,14 +1096,14 @@
                 </div>
             </div>
 
-        </div><!-- /right column -->
+        </div>
     </div>
 </form>
 
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script>
-    // ── Original values for change tracking ───────────────────────────
+    // Degisiklik takibi icin formun acilistaki degerleri
     const originals = {
         Title:        document.getElementById('Title')?.dataset.original        ?? '',
         Description:  document.getElementById('Description')?.dataset.original  ?? '',
@@ -1074,7 +1115,6 @@
         IsStatus:     '@Model.IsStatus.ToString().ToLower()'
     };
 
-    // ── Character counters ─────────────────────────────────────────────
     function setupCounter(inputId, counterId, max) {
         const input   = document.getElementById(inputId);
         const counter = document.getElementById(counterId);
@@ -1093,7 +1133,6 @@
     setupCounter('Title',       'titleCounter', 100);
     setupCounter('Description', 'descCounter',  500);
 
-    // ── Number stepper ─────────────────────────────────────────────────
     function stepValue(id, delta, min, max) {
         const input = document.getElementById(id);
         let val = parseInt(input.value) || 0;
@@ -1102,7 +1141,7 @@
         trackChange(id);
     }
 
-    // ── Image preview ──────────────────────────────────────────────────
+    // Kapak gorseli onizlemesi
     const coverInput = document.getElementById('CoverImageUrl');
     const previewBox = document.getElementById('imagePreviewBox');
     const previewImg = document.getElementById('imagePreview');
@@ -1114,7 +1153,6 @@
         previewImg.src = url;
     }
 
-    // Load existing image on page load
     loadPreview(coverInput.value.trim());
 
     let previewTimeout;
@@ -1123,7 +1161,6 @@
         previewTimeout = setTimeout(() => loadPreview(coverInput.value.trim()), 600);
     });
 
-    // ── Status label ───────────────────────────────────────────────────
     function updateStatusLabel(cb) {
         document.getElementById('statusLabelTitle').textContent = cb.checked ? 'Aktif'  : 'Pasif';
         document.getElementById('statusLabelSub').textContent   = cb.checked
@@ -1134,7 +1171,6 @@
             : 'bi bi-eye-slash-fill';
     }
 
-    // ── Change tracker ─────────────────────────────────────────────────
     function trackChange(fieldId) {
         const el  = document.getElementById(fieldId);
         const row = document.querySelector(`.change-item[data-field="${fieldId}"]`);
@@ -1176,7 +1212,6 @@
         });
     }
 
-    // Attach listeners
     ['Title', 'Description', 'CoverImageUrl', 'Price'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', () => trackChange(id));
@@ -1199,10 +1234,8 @@
         });
     }
 
-    // Initial check
     updateNoChangesMsg();
 
-    // ── Client-side validation ─────────────────────────────────────────
     const requiredFields = ['Title', 'Description', 'CoverImageUrl'];
 
     document.getElementById('updateTourForm').addEventListener('submit', function (e) {
@@ -1230,7 +1263,7 @@
         } else {
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Güncelleniyor…';
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Güncelleniyor...';
         }
     });
 
@@ -1239,7 +1272,3 @@
     });
 </script>
 }
-
-
-
-

@@ -1,0 +1,47 @@
+@{
+    // Site tarafi dil secici — cookie tabanli, bulunulan sayfaya geri doner
+    var mevcutDil = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var buSayfa = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString;
+}
+
+<div class="lang-switch">
+    <a asp-controller="Language" asp-action="ChangeLanguage"
+       asp-route-culture="tr" asp-route-returnUrl="@buSayfa"
+       class="@(mevcutDil == "tr" ? "active" : "")">TR</a>
+    <span>|</span>
+    <a asp-controller="Language" asp-action="ChangeLanguage"
+       asp-route-culture="en" asp-route-returnUrl="@buSayfa"
+       class="@(mevcutDil == "en" ? "active" : "")">EN</a>
+</div>
+
+<style>
+    .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+        .lang-switch a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+            .lang-switch a:hover {
+                color: #2d9cdb;
+            }
+
+            .lang-switch a.active {
+                color: #2d9cdb;
+            }
+
+        .lang-switch span {
+            color: #e2e8f0;
+        }
+</style>

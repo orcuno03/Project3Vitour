@@ -1,14 +1,13 @@
-﻿<footer class="footer footer-style1">
+@model List<ResultCategoryDto>
+
+<footer class="footer footer-style1">
     <div class="tf-container">
         <div class="footer-main">
             <div class="footer-logo">
                 <div class="logo-footer">
-                    <img src="/vitour/assets/images/logo2.png" alt="">
+                    <img src="/vitour/assets/images/logo2.png" alt="Vitour">
                 </div>
-                <p class="des-footer">
-                    Dünyayı keşfetmeniz için güvenli, konforlu
-                    ve profesyonel tur hizmetleri sunuyoruz.
-                </p>
+                <p class="des-footer">@L["Footer_About"]</p>
                 <ul class="footer-info">
                     <li class="flex-three">
                         <i class="icon-noun-mail-5780740-1"></i>
@@ -23,96 +22,64 @@
                         <p>Bağdat Caddesi No:123 Kadıköy / İstanbul</p>
                     </li>
                 </ul>
-
             </div>
             <div class="footer-service">
-                <h5 class="title">Kurumsal</h5>
+                <h5 class="title">@L["Footer_QuickLinks"]</h5>
 
                 <ul class="footer-menu">
                     <li>
-                        <a href="about-us.html">Hakkımızda</a>
+                        <a asp-controller="Tour" asp-action="TourList">@L["Nav_Home"]</a>
                     </li>
                     <li>
-                        <a href="gallery.html">Galeri</a>
+                        <a asp-controller="Tour" asp-action="TourList">@L["Nav_AllTours"]</a>
                     </li>
-                    <li>
-                        <a href="team.html">Ekibimiz</a>
-                    </li>
-                    <li>
-                        <a href="blog.html">Blog Yazıları</a>
-                    </li>
-                    <li>
-                        <a href="contact-us.html">İletişim</a>
-                    </li>
+                </ul>
+            </div>
+            <div class="footer-service">
+                <h5 class="title">@L["Footer_Categories"]</h5>
+
+                <ul class="footer-menu">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var kategori in Model)
+                        {
+                            <li>
+                                <a asp-controller="Tour" asp-action="TourList"
+                                   asp-route-categoryId="@kategori.CategoryId">@(L[kategori.CategoryName]?.Value ?? kategori.CategoryName)</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
             <div class="footer-gallery">
-                <h5 class="title">Galeri</h5>
+                <h5 class="title">@L["Footer_Gallery"]</h5>
 
                 <div class="gallery-img">
-                    <a href="/vitour/assets/images/gallery/gl1.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl1.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/kapadokya.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/kapadokya.jpg" alt="Kapadokya">
                     </a>
-                    <a href="/vitour/assets/images/gallery/gl2.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl2.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/istanbul.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/istanbul.jpg" alt="İstanbul">
                     </a>
-                    <a href="/vitour/assets/images/gallery/gl3.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl3.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/fethiye.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/fethiye.jpg" alt="Fethiye">
                     </a>
-                    <a href="/vitour/assets/images/gallery/gl4.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl4.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/kas.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/kas.jpg" alt="Kaş">
                     </a>
-                    <a href="/vitour/assets/images/gallery/gl5.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl5.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/kars.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/kars.jpg" alt="Kars">
                     </a>
-                    <a href="/vitour/assets/images/gallery/gl6.jpg" data-fancybox="gallery">
-                        <img src="/vitour/assets/images/gallery/gl6.jpg" alt="image gallery">
+                    <a href="/vitour/assets/images/tours/uludag.jpg" data-fancybox="gallery">
+                        <img src="/vitour/assets/images/tours/uludag.jpg" alt="Uludağ">
                     </a>
                 </div>
-
-            </div>
-            <div class="footer-newsletter">
-                <h5 class="title">Bülten Aboneliği</h5>
-                <form action="/" id="footer-form">
-                    <div class="input-wrap flex-three">
-                        <input type="email" placeholder="E-posta Adresinizi Giriniz">
-                        <button type="submit"><i class="icon-paper-plane"></i></button>
-                    </div>
-                    <div class="check-form flex-three">
-                        <i class="icon-Vector-121"></i>
-                        <p>Tüm şartlar ve gizlilik politikamızı kabul ediyorum</p>
-                    </div>
-                </form>
-
-                <ul class="social-ft flex-three">
-                    <li>
-                        <a href="#">
-                            <i class="icon-icon-2"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-x"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-8"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-2"></i>
-                        </a>
-                    </li>
-                </ul>
-
             </div>
         </div>
 
         <div class="row footer-bottom">
             <div class="col-md-6">
-                <p class="copy-right">Copyright © @DateTime.Now.Year by Themesflat. Tüm hakları saklıdır.</p>
+                <p class="copy-right">&copy; @DateTime.Now.Year Vitour. @L["Footer_Rights"]</p>
             </div>
             <div class="col-md-6">
                 <ul class="social flex-six">

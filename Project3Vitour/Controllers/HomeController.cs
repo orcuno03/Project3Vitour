@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Project3Vitour.Models;
 
@@ -13,14 +13,10 @@ namespace Project3Vitour.Controllers
             _logger = logger;
         }
 
+        // Sitenin giris noktasi tur listesidir.
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return RedirectToAction("TourList", "Tour");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

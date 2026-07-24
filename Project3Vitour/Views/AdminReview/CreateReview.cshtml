@@ -1,0 +1,126 @@
+@model CreateReviewDto
+
+@{
+    ViewData["Title"] = "Yeni Yorum";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Yeni Yorum</h1>
+        <p class="section-sub">Bir tura ait yorumu panelden ekleyin.</p>
+    </div>
+    <a asp-controller="AdminReview" asp-action="ReviewList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form asp-controller="AdminReview" asp-action="CreateReview" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="validation-msg"></div>
+
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="TourId">Tur</label>
+                    <select asp-for="TourId" asp-items="ViewBag.Tours" class="form-control-admin">
+                        <option value="">Tur seçin</option>
+                    </select>
+                    <span asp-validation-for="TourId" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="NameSurname">Ad Soyad</label>
+                    <input asp-for="NameSurname" class="form-control-admin" placeholder="Örnek: Ayşe Yılmaz" autocomplete="off" />
+                    <span asp-validation-for="NameSurname" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label class="form-label-admin" asp-for="Detail">Yorum</label>
+                    <textarea asp-for="Detail" class="form-control-admin" rows="4" placeholder="Yorum metnini yazın"></textarea>
+                    <span asp-validation-for="Detail" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="GuideScore">Rehber Puanı</label>
+                    <select asp-for="GuideScore" class="form-control-admin">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="GuideScore" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="AccommodationScore">Konaklama Puanı</label>
+                    <select asp-for="AccommodationScore" class="form-control-admin">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="AccommodationScore" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="TransportScore">Ulaşım Puanı</label>
+                    <select asp-for="TransportScore" class="form-control-admin">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TransportScore" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="ComfortScore">Konfor Puanı</label>
+                    <select asp-for="ComfortScore" class="form-control-admin">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ComfortScore" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="ReviewDate">Yorum Tarihi</label>
+                    <input asp-for="ReviewDate" type="date" class="form-control-admin" />
+                    <span asp-validation-for="ReviewDate" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label class="form-label-admin" asp-for="Status">Durum</label>
+                    <div class="switch-row">
+                        <div class="form-check form-switch">
+                            <input asp-for="Status" class="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                        <span class="cell-muted">Yayında göster</span>
+                    </div>
+                    <span asp-validation-for="Status" class="validation-msg"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Kaydet
+                </button>
+                <a asp-controller="AdminReview" asp-action="ReviewList" class="btn-admin btn-ghost-admin">
+                    <i class="bi bi-x-lg"></i> Vazgeç
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

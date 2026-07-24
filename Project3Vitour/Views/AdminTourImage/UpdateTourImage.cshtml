@@ -1,0 +1,55 @@
+@model GetTourImageByIdDto
+
+@{
+    ViewData["Title"] = "Fotoğraf Düzenle";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Fotoğraf Düzenle</h1>
+        <p class="section-sub">@Model.Title</p>
+    </div>
+    <a asp-controller="AdminTourImage" asp-action="TourImageList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form method="post">
+            <input asp-for="TourImageId" type="hidden" />
+
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label asp-for="TourId" class="form-label-admin">Tur</label>
+                    <select asp-for="TourId" asp-items="ViewBag.Tours" class="form-control-admin">
+                        <option value="">— Tur seçin —</option>
+                    </select>
+                    <span asp-validation-for="TourId" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="Title" class="form-label-admin">Başlık</label>
+                    <input asp-for="Title" class="form-control-admin" />
+                    <span asp-validation-for="Title" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="ImageUrl" class="form-label-admin">Görsel Yolu</label>
+                    <input asp-for="ImageUrl" class="form-control-admin" />
+                    <span asp-validation-for="ImageUrl" class="validation-msg"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Güncelle
+                </button>
+                <a asp-controller="AdminTourImage" asp-action="TourImageList" class="btn-admin btn-ghost-admin">Vazgeç</a>
+            </div>
+        </form>
+    </div>
+</div>

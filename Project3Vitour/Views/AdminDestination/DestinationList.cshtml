@@ -1,0 +1,84 @@
+@model List<ResultDestinationDto>
+
+@{
+    ViewData["Title"] = "Lokasyonlar";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Lokasyonlar</h1>
+        <p class="section-sub">Toplam @Model.Count lokasyon kayıtlı</p>
+    </div>
+    <a asp-controller="AdminDestination" asp-action="CreateDestination" class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i> Yeni Lokasyon
+    </a>
+</div>
+
+<div class="admin-card">
+    @if (!Model.Any())
+    {
+        <div class="empty-state-admin">
+            <i class="bi bi-geo-alt"></i>
+            Henüz lokasyon eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="table-scroll">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width:80px;">Görsel</th>
+                        <th>Şehir</th>
+                        <th>Ülke</th>
+                        <th>Durum</th>
+                        <th style="width:120px;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.City" class="thumb" />
+                                }
+                                else
+                                {
+                                    <span class="cell-muted">—</span>
+                                }
+                            </td>
+                            <td class="cell-title">@item.City</td>
+                            <td class="cell-muted">@item.Country</td>
+                            <td>
+                                @if (item.DestinationStatus)
+                                {
+                                    <span class="badge-pill badge-success"><i class="bi bi-check-circle-fill"></i> Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-pill badge-neutral"><i class="bi bi-slash-circle"></i> Pasif</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="row-actions">
+                                    <a asp-controller="AdminDestination" asp-action="UpdateDestination" asp-route-id="@item.DestinationId"
+                                       class="btn-icon edit" title="Düzenle">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-controller="AdminDestination" asp-action="DeleteDestination" asp-route-id="@item.DestinationId"
+                                       class="btn-icon delete" title="Sil"
+                                       onclick="return confirm('Bu lokasyonu silmek istediğinize emin misiniz?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

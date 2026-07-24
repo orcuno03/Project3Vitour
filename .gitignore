@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Bolge haritalarinin ham PNG ciktilari (~10MB/adet).
+# Siteye servis edilen surum optimize edilmis .jpg dosyalaridir.
+Project3Vitour/wwwroot/vitour/assets/images/map/*.png
+
+# IDE and AI Tool Cache/Config Directories
+.claude/
+.cursor/
+.gemini/
+.vscode/
+.idea/

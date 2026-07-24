@@ -1,140 +1,228 @@
-﻿@model List<Project3Vitour.Dtos.TourDtos.ResultTourDto>
+@model Project3Vitour.Models.TourListViewModel
+
+@{
+    var ilk = Model.TotalCount == 0 ? 0 : ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+    var son = Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalCount);
+
+    // Kapak gorseli bos ya da kirik oldugunda ayni yedek gorsel kullanilir
+    var yedekGorsel = "/vitour/assets/images/page/breakcrumb.jpg";
+
+    // Rozet degerleri veritabaninda Ingilizce tutuluyor, ekranda ceviri anahtariyla basiliyor
+    var bilinenRozetler = new[] { "Popular", "New", "Limited" };
+}
+
+@* Grid kartlarinda kapak gorsellerini sabit oranda kirparak esit yukseklikte gosterir *@
+<style>
+    .archieve-tour .tour-listing .tour-listing-image {
+        display: block;
+        height: 240px;
+        overflow: hidden;
+        background-color: #eef1f5;
+    }
+
+    .archieve-tour .tour-listing .tour-listing-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+</style>
 
 <section class="archieve-tour">
     <div class="tf-container">
         <div class="listing-list-car-wrap listing-list-car-wrap-grid3">
-            <form action="/" class="tf-my-listing mb-37">
+
+            <div class="tf-my-listing mb-37">
                 <div class="row align-center">
-                    <div class="col-sm-5">
-                        <p class="showing">Gösteriliyor: <span class="text-main">12</span> of 21 Results</p>
+                    <div class="col-sm-8">
+                        <p class="showing">
+                            @L["Tour_Showing"]:
+                            <span class="text-main">@ilk–@son</span>
+                            / @L["Tour_TotalOf", Model.TotalCount]
+                        </p>
                     </div>
-                    <div class="col-sm-7  flex-six group-bar-wrap">
-                        <div class="listing-all-wrap">
-                            <div class="flex-three">
-                                <div class="group-select-recently">
-                                    <div class="nice-select" tabindex="0">
-                                        <i class="icon-Vector6"></i><span class="current">Price</span>
-                                        <ul class="list">
-                                            <li data-value="" class="option selected focus">Price</li>
-                                            <li data-value="new" class="option">New</li>
-                                            <li data-value="Recently Added" class="option">
-                                                Recently Added
-                                            </li>
-                                        </ul>
+                    @if (Model.HasCategoryFilter)
+                    {
+                        <div class="col-sm-4" style="text-align:right;">
+                            @if (!string.IsNullOrWhiteSpace(Model.CategoryName))
+                            {
+                                <span class="text-main">@L["Tour_FilteredBy", (L[Model.CategoryName]?.Value ?? Model.CategoryName)]</span>
+                            }
+                            <a asp-controller="Tour" asp-action="TourList" style="margin-left:10px;">
+                                @L["Tour_ClearFilter"]
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @if (!Model.Tours.Any())
+            {
+                <div class="listing-list-car-grid mb-60">
+                    <p>@L["Tour_NoTours"]</p>
+                </div>
+            }
+            else
+            {
+                <div class="listing-list-car-grid mb-60">
+
+                    @foreach (var item in Model.Tours)
+                    {
+                        var rawLokasyon = Model.DestinationNames.ContainsKey(item.TourId)
+                            ? Model.DestinationNames[item.TourId]
+                            : L["Tour_NoLocation"].Value;
+                        var lokasyon = L[rawLokasyon]?.Value ?? rawLokasyon;
+
+                        var rawKategori = Model.CategoryNames.ContainsKey(item.TourId)
+                            ? Model.CategoryNames[item.TourId]
+                            : null;
+                        var kategori = rawKategori != null ? (L[rawKategori]?.Value ?? rawKategori) : null;
+
+                        var baslik = L[item.Title]?.Value ?? item.Title;
+
+                        var yorumSayisi = Model.ReviewCounts.ContainsKey(item.TourId) ? Model.ReviewCounts[item.TourId] : 0;
+                        var ortalama = Model.AverageScores.ContainsKey(item.TourId) ? Model.AverageScores[item.TourId] : 0;
+                        var doluYildiz = (int)Math.Round(ortalama);
+
+                        var kapak = string.IsNullOrWhiteSpace(item.CoverImageUrl) ? yedekGorsel : item.CoverImageUrl;
+
+                        var rozetAnahtari = bilinenRozetler.FirstOrDefault(
+                            x => string.Equals(x, item.Badge, StringComparison.OrdinalIgnoreCase));
+
+                        <div class="tour-listing box-sd">
+                            <a asp-controller="Tour" asp-action="TourDetail" asp-route-id="@item.TourId" class="tour-listing-image">
+                                <div class="badge-top flex-two">
+                                    @if (rozetAnahtari != null)
+                                    {
+                                        <span class="feature">@(L["Badge_" + rozetAnahtari])</span>
+                                    }
+                                    @if (kategori != null)
+                                    {
+                                        <div class="badge-media flex-five">
+                                            <span class="media">@kategori</span>
+                                        </div>
+                                    }
+                                </div>
+                                <img src="@kapak" alt="@baslik"
+                                     onerror="this.onerror=null;this.src='@yedekGorsel';">
+                            </a>
+
+                            <div class="tour-listing-content">
+                                <span class="map"><i class="icon-Vector4"></i>@lokasyon</span>
+
+                                <h3 class="title-tour-list">
+                                    <a asp-controller="Tour" asp-action="TourDetail" asp-route-id="@item.TourId">
+                                        @baslik
+                                    </a>
+                                </h3>
+
+                                <div class="review">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="icon-Star" style="@(i <= doluYildiz ? "" : "opacity:.3;")"></i>
+                                    }
+                                    @if (yorumSayisi > 0)
+                                    {
+                                        <span>@ortalama.ToString("F1") (@yorumSayisi @L["Tour_ReviewCount"])</span>
+                                    }
+                                    else
+                                    {
+                                        <span>(@L["Tour_NoReviews"])</span>
+                                    }
+                                </div>
+
+                                <div class="icon-box flex-three">
+                                    <div class="icons flex-three">
+                                        <i class="icon-time-left"></i>
+                                        <span>@item.DayCount @L["Tour_Days"]</span>
+                                    </div>
+                                    <div class="icons flex-three">
+                                        <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.34766 4.79761C4.34766 2.94013 5.85346 1.43433 7.71094 1.43433C9.56841 1.43433 11.0742 2.94013 11.0742 4.79761C11.0742 6.65508 9.56841 8.16089 7.71094 8.16089C5.85346 8.16089 4.34766 6.65508 4.34766 4.79761Z"
+                                                  stroke="currentColor" stroke-width="1.7"
+                                                  stroke-miterlimit="10" stroke-linecap="round"
+                                                  stroke-linejoin="round" />
+                                            <path d="M9.5977 15.1797H2.46098C1.34827 15.1797 0.558268 14.0954 0.898984 13.0362C1.80408 10.222 4.57804 8.18566 7.69301 8.18566C9.17897 8.18566 10.5566 8.64906 11.6895 9.43922"
+                                                  stroke="currentColor" stroke-width="1.7"
+                                                  stroke-miterlimit="10" stroke-linecap="round"
+                                                  stroke-linejoin="round" />
+                                            <path d="M17.1035 15.1797V9.02734" stroke="currentColor"
+                                                  stroke-width="1.7" stroke-miterlimit="10"
+                                                  stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M20.1797 12.1035H14.0273" stroke="currentColor"
+                                                  stroke-width="1.7" stroke-miterlimit="10"
+                                                  stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <span>@item.Capacity @L["Tour_People"]</span>
                                     </div>
                                 </div>
-                                <div class="toolbar-list">
-                                    <div class="form-group">
-                                        <a class="btn-display-listing-grid">
-                                            <i class="icon-list"></i>
-                                        </a>
+
+                                <div class="flex-two">
+                                    <div class="price-box flex-three">
+                                        <p>
+                                            @L["Tour_Price"]:
+                                            <span class="price-sale">@item.Price.ToString("N0") ₺</span>
+                                        </p>
                                     </div>
-                                    <div class="form-group">
-                                        <a class="btn-display-listing-list active">
-                                            <i class="icon-Group-1000001297"></i>
-                                        </a>
+                                    <div class="icon-bookmark">
+                                        <i class="icon-Vector-151"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </form>
-            <div class="listing-list-car-grid mb-60">
-
-                @foreach (var item in Model)
-                {
-                    <div class="tour-listing box-sd">
-                        <a href="tour-single.html" class="tour-listing-image">
-                            <div class="badge-top flex-two">
-                                <span class="feature">Featured</span>
-                                <div class="badge-media flex-five">
-                                    <span class="media"><i class="icon-Group-1000002909"></i>5</span>
-                                    <span class="media"><i class="icon-Group-1000002910"></i>2</span>
-                                </div>
-                            </div>
-                            <img src="@item.CoverImageUrl" alt="Image Listing">
-
-                        </a>
-                        <div class="tour-listing-content">
-                            <span class="map"><i class="icon-Vector4"></i>United States USA</span>
-                            <h3 class="title-tour-list">
-                                <a href="tour-single.html">
-                                    @item.Title
-                                </a>
-                            </h3>
-                            <div class="review">
-                                <i class="icon-Star"></i>
-                                <i class="icon-Star"></i>
-                                <i class="icon-Star"></i>
-                                <i class="icon-Star"></i>
-                                <i class="icon-Star"></i>
-                                <span>(0 Değerlendirme)</span>
-                            </div>
-                            <div class="icon-box flex-three">
-                                <div class="icons flex-three">
-                                    <i class="icon-time-left"></i>
-                                    <span>@item.DayCount Gün</span>
-                                </div>
-                                <div class="icons flex-three">
-                                    <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.34766 4.79761C4.34766 2.94013 5.85346 1.43433 7.71094 1.43433C9.56841 1.43433 11.0742 2.94013 11.0742 4.79761C11.0742 6.65508 9.56841 8.16089 7.71094 8.16089C5.85346 8.16089 4.34766 6.65508 4.34766 4.79761Z"
-                                              stroke="currentColor" stroke-width="1.7"
-                                              stroke-miterlimit="10" stroke-linecap="round"
-                                              stroke-linejoin="round" />
-                                        <path d="M9.5977 15.1797H2.46098C1.34827 15.1797 0.558268 14.0954 0.898984 13.0362C1.80408 10.222 4.57804 8.18566 7.69301 8.18566C9.17897 8.18566 10.5566 8.64906 11.6895 9.43922"
-                                              stroke="currentColor" stroke-width="1.7"
-                                              stroke-miterlimit="10" stroke-linecap="round"
-                                              stroke-linejoin="round" />
-                                        <path d="M17.1035 15.1797V9.02734" stroke="currentColor"
-                                              stroke-width="1.7" stroke-miterlimit="10"
-                                              stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M20.1797 12.1035H14.0273" stroke="currentColor"
-                                              stroke-width="1.7" stroke-miterlimit="10"
-                                              stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    <span>@item.Capacity</span>
-                                </div>
-                            </div>
-                            <div class="flex-two">
-                                <div class="price-box flex-three">
-                                    <p>Fiyat: <span class="price-sale">@item.Price</span></p>
-                                    <span class="price">@(item.Price + item.Price * 20 / 100)</span>
-                                </div>
-                                <div class="icon-bookmark">
-                                    <i class="icon-Vector-151"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 ">
-                    <ul class="tf-pagination flex-five mt-20">
-                        <li>
-                            <a class="pages-link" href="#"> <i class="icon-29"></i></a>
-                        </li>
-                        <li>
-                            <a class="pages-link" href="#">1</a>
-                        </li>
-                        <li class="pages-item active" aria-current="page">
-                            <a class="pages-link" href="#">2</a>
-                        </li>
-                        <li><a class="pages-link" href="#">3</a></li>
-                        <li>
-                            <a class="pages-link" href="#"><i class=" icon--1"></i></a>
-                        </li>
-                    </ul>
+                    }
 
                 </div>
-            </div>
+            }
+
+            @* Sayfalama: her sayfada 6 tur, aktif kategori filtresi linklerde korunur *@
+            @if (Model.TotalPages > 1)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="tf-pagination flex-five mt-20">
+
+                            @if (Model.HasPrevious)
+                            {
+                                <li>
+                                    <a class="pages-link"
+                                       asp-controller="Tour" asp-action="TourList"
+                                       asp-route-page="@(Model.CurrentPage - 1)"
+                                       asp-route-categoryId="@Model.CategoryId">
+                                        <i class="icon-29"></i>
+                                    </a>
+                                </li>
+                            }
+
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="@(i == Model.CurrentPage ? "pages-item active" : "")"
+                                    aria-current="@(i == Model.CurrentPage ? "page" : null)">
+                                    <a class="pages-link"
+                                       asp-controller="Tour" asp-action="TourList"
+                                       asp-route-page="@i"
+                                       asp-route-categoryId="@Model.CategoryId">@i</a>
+                                </li>
+                            }
+
+                            @if (Model.HasNext)
+                            {
+                                <li>
+                                    <a class="pages-link"
+                                       asp-controller="Tour" asp-action="TourList"
+                                       asp-route-page="@(Model.CurrentPage + 1)"
+                                       asp-route-categoryId="@Model.CategoryId">
+                                        <i class="icon--1"></i>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            }
+
         </div>
-
     </div>
 </section>
-

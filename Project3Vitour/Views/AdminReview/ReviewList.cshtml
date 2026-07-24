@@ -1,0 +1,110 @@
+@model List<ResultReviewDto>
+
+@{
+    ViewData["Title"] = "Yorumlar";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+
+    var tourTitles = ViewBag.TourTitles as Dictionary<string, string> ?? new Dictionary<string, string>();
+    var onayBekleyen = Model.Count(x => !x.Status);
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Yorumlar</h1>
+        <p class="section-sub">
+            Toplam @Model.Count yorum
+            @if (onayBekleyen > 0)
+            {
+                <span class="badge-pill badge-warning" style="margin-left:8px;">
+                    <i class="bi bi-hourglass-split"></i> @onayBekleyen onay bekliyor
+                </span>
+            }
+        </p>
+    </div>
+    <a asp-controller="AdminReview" asp-action="CreateReview" class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i> Yeni Yorum
+    </a>
+</div>
+
+<div class="admin-card">
+    @if (!Model.Any())
+    {
+        <div class="empty-state-admin">
+            <i class="bi bi-chat-heart"></i>
+            Henüz yorum yapılmamış.
+        </div>
+    }
+    else
+    {
+        <div class="table-scroll">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Yorum Sahibi</th>
+                        <th>Tur</th>
+                        <th style="width:230px;">Puanlama</th>
+                        <th>Yorum</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                        <th style="width:150px;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(x => x.ReviewDate))
+                    {
+                        var turAdi = tourTitles.ContainsKey(item.TourId) ? tourTitles[item.TourId] : "Silinmiş tur";
+
+                        <tr>
+                            <td class="cell-title">@item.NameSurname</td>
+                            <td><span class="badge-pill badge-info"><i class="bi bi-map"></i> @turAdi</span></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px;">
+                                    <span class="badge-pill badge-warning">
+                                        <i class="bi bi-star-fill"></i> @item.AverageScore.ToString("F1") / 5
+                                    </span>
+                                    <span class="cell-muted">ortalama</span>
+                                </div>
+                                <div class="cell-muted" style="font-size:11.5px; line-height:1.6;">
+                                    Rehber: <b>@item.GuideScore</b> ·
+                                    Konaklama: <b>@item.AccommodationScore</b><br />
+                                    Ulaşım: <b>@item.TransportScore</b> ·
+                                    Konfor: <b>@item.ComfortScore</b>
+                                </div>
+                            </td>
+                            <td class="cell-muted" style="max-width:320px;">@item.Detail</td>
+                            <td class="cell-muted">@item.ReviewDate.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                @if (item.Status)
+                                {
+                                    <span class="badge-pill badge-success"><i class="bi bi-check-circle-fill"></i> Yayında</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-pill badge-warning"><i class="bi bi-hourglass-split"></i> Onay Bekliyor</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="row-actions">
+                                    <a asp-controller="AdminReview" asp-action="ChangeReviewStatus" asp-route-id="@item.ReviewId"
+                                       class="btn-icon approve"
+                                       title="@(item.Status ? "Yayından kaldır" : "Yayına al")">
+                                        <i class="bi @(item.Status ? "bi-eye-slash" : "bi-check-lg")"></i>
+                                    </a>
+                                    <a asp-controller="AdminReview" asp-action="UpdateReview" asp-route-id="@item.ReviewId"
+                                       class="btn-icon edit" title="Düzenle">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-controller="AdminReview" asp-action="DeleteReview" asp-route-id="@item.ReviewId"
+                                       class="btn-icon delete" title="Sil"
+                                       onclick="return confirm('Bu yorumu silmek istediğinize emin misiniz?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

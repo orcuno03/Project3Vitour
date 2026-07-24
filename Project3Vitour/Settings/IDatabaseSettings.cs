@@ -1,4 +1,4 @@
-﻿namespace Project3Vitour.Settings
+namespace Project3Vitour.Settings
 {
     public interface IDatabaseSettings
     {
@@ -7,5 +7,9 @@
         public string TourCollectionName { get; set; }
         public string CategoryCollectionName { get; set; }
         public string ReviewCollectionName { get; set; }
+        public string DestinationCollectionName { get; set; }
+        public string TourPlanCollectionName { get; set; }
+        public string TourImageCollectionName { get; set; }
+        public string ReservationCollectionName { get; set; }
     }
 }

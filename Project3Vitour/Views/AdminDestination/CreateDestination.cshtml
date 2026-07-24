@@ -1,0 +1,61 @@
+@model CreateDestinationDto
+
+@{
+    ViewData["Title"] = "Yeni Lokasyon";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Yeni Lokasyon</h1>
+        <p class="section-sub">Turların bağlanacağı şehir/bölge bilgisi</p>
+    </div>
+    <a asp-controller="AdminDestination" asp-action="DestinationList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form method="post">
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label asp-for="City" class="form-label-admin">Şehir</label>
+                    <input asp-for="City" class="form-control-admin" placeholder="Örn: Nevşehir" />
+                    <span asp-validation-for="City" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="Country" class="form-label-admin">Ülke</label>
+                    <input asp-for="Country" class="form-control-admin" placeholder="Örn: Türkiye" />
+                    <span asp-validation-for="Country" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="ImageUrl" class="form-label-admin">Görsel Yolu</label>
+                    <input asp-for="ImageUrl" class="form-control-admin" placeholder="/vitour/assets/images/destination/des1.jpg" />
+                    <span asp-validation-for="ImageUrl" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label class="form-label-admin">Durum</label>
+                    <div class="switch-row">
+                        <div class="form-check form-switch">
+                            <input asp-for="DestinationStatus" class="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                        <span class="cell-muted">Aktif lokasyonlar sitede görünür.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Kaydet
+                </button>
+                <a asp-controller="AdminDestination" asp-action="DestinationList" class="btn-admin btn-ghost-admin">Vazgeç</a>
+            </div>
+        </form>
+    </div>
+</div>

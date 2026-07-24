@@ -1,0 +1,71 @@
+@model List<ResultCategoryDto>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Kategoriler</h1>
+        <p class="section-sub">Toplam @Model.Count kategori kayıtlı</p>
+    </div>
+    <a asp-controller="AdminCategory" asp-action="CreateCategory" class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i> Yeni Kategori
+    </a>
+</div>
+
+<div class="admin-card">
+    @if (!Model.Any())
+    {
+        <div class="empty-state-admin">
+            <i class="bi bi-tags"></i>
+            Henüz kategori eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="table-scroll">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Kategori Adı</th>
+                        <th>Durum</th>
+                        <th style="width:120px;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="cell-title">@item.CategoryName</td>
+                            <td>
+                                @if (item.CategoryStatus)
+                                {
+                                    <span class="badge-pill badge-success"><i class="bi bi-check-circle-fill"></i> Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-pill badge-neutral"><i class="bi bi-slash-circle"></i> Pasif</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="row-actions">
+                                    <a asp-controller="AdminCategory" asp-action="UpdateCategory" asp-route-id="@item.CategoryId"
+                                       class="btn-icon edit" title="Düzenle">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-controller="AdminCategory" asp-action="DeleteCategory" asp-route-id="@item.CategoryId"
+                                       class="btn-icon delete" title="Sil"
+                                       onclick="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

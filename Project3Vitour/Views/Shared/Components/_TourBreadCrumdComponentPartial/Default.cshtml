@@ -1,15 +1,14 @@
-﻿<section class="breadcumb-section">
+<section class="breadcumb-section">
     <div class="tf-container">
         <div class="row">
             <div class="col-lg-12 center z-index1">
-                <h1 class="title">Güncel Turlar</h1>
+                <h1 class="title">@L["Breadcrumb_Tours"]</h1>
                 <ul class="breadcumb-list flex-five">
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><span>Tur Paketleri</span></li>
+                    <li><a asp-controller="Tour" asp-action="TourList">@L["Breadcrumb_Home"]</a></li>
+                    <li><span>@L["Breadcrumb_Tours"]</span></li>
                 </ul>
                 <img class="bcrumb-ab" src="/vitour/assets/images/page/mask-bcrumb.png" alt="">
             </div>
         </div>
-
     </div>
 </section>

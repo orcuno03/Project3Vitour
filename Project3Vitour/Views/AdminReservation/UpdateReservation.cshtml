@@ -1,0 +1,89 @@
+@model UpdateReservationDto
+
+@{
+    ViewData["Title"] = "Rezervasyon Düzenle";
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+<div class="section-header">
+    <div>
+        <h1 class="section-title">Rezervasyon Düzenle</h1>
+        <p class="section-sub">@Model.NameSurname adına kayıtlı rezervasyon</p>
+    </div>
+    <a asp-controller="AdminReservation" asp-action="ReservationList" class="btn-admin btn-ghost-admin">
+        <i class="bi bi-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card-body">
+        <form method="post">
+            <input type="hidden" asp-for="ReservationId" />
+
+            <div asp-validation-summary="ModelOnly" class="validation-msg" style="margin-bottom:16px;"></div>
+
+            <div class="form-grid">
+
+                <div class="form-group-admin">
+                    <label asp-for="TourId" class="form-label-admin">Tur</label>
+                    <select asp-for="TourId" asp-items="ViewBag.Tours" class="form-control-admin">
+                        <option value="">— Tur seçin —</option>
+                    </select>
+                    <span asp-validation-for="TourId" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="ReservationStatus" class="form-label-admin">Durum</label>
+                    <select asp-for="ReservationStatus" asp-items="ViewBag.Statuses" class="form-control-admin">
+                        <option value="">— Durum seçin —</option>
+                    </select>
+                    <span asp-validation-for="ReservationStatus" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="NameSurname" class="form-label-admin">Ad Soyad</label>
+                    <input asp-for="NameSurname" class="form-control-admin" placeholder="Örn: Ayşe Yılmaz" />
+                    <span asp-validation-for="NameSurname" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="Email" class="form-label-admin">E-posta</label>
+                    <input asp-for="Email" type="email" class="form-control-admin" placeholder="ornek@eposta.com" />
+                    <span asp-validation-for="Email" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="Phone" class="form-label-admin">Telefon</label>
+                    <input asp-for="Phone" class="form-control-admin" placeholder="0532 000 00 00" />
+                    <span asp-validation-for="Phone" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="PersonCount" class="form-label-admin">Kişi Sayısı</label>
+                    <input asp-for="PersonCount" type="number" min="1" max="50" class="form-control-admin" />
+                    <span asp-validation-for="PersonCount" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin">
+                    <label asp-for="ReservationDate" class="form-label-admin">Rezervasyon Tarihi</label>
+                    <input asp-for="ReservationDate" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control-admin" />
+                    <span asp-validation-for="ReservationDate" class="validation-msg"></span>
+                </div>
+
+                <div class="form-group-admin full">
+                    <label asp-for="Note" class="form-label-admin">Not</label>
+                    <textarea asp-for="Note" class="form-control-admin" placeholder="Rezervasyona ait ek bilgi (isteğe bağlı)"></textarea>
+                    <span asp-validation-for="Note" class="validation-msg"></span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-admin btn-primary-admin">
+                    <i class="bi bi-check-lg"></i> Güncelle
+                </button>
+                <a asp-controller="AdminReservation" asp-action="ReservationList" class="btn-admin btn-ghost-admin">Vazgeç</a>
+            </div>
+        </form>
+    </div>
+</div>

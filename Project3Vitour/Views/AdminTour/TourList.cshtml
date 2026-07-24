@@ -1,13 +1,13 @@
-﻿@model List<ResultTourDto>
+@model List<ResultTourDto>
 
 @{
-    ViewData["Title"] = "Tours";
+    ViewData["Title"] = "Turlar";
     Layout = "~/Views/Shared/_TourLayout.cshtml";
 }
 
 @section Styles {
     <style>
-        /* ─── Page Header ───────────────────────────────────── */
+        /* Sayfa başlığı */
         .section-header {
             display: flex;
             align-items: flex-start;
@@ -54,7 +54,7 @@
                 transform: translateY(-1px);
             }
 
-        /* ─── Filter Bar ─────────────────────────────────────── */
+        /* Filtre çubuğu */
         .filter-bar {
             display: flex;
             align-items: center;
@@ -128,7 +128,7 @@
             white-space: nowrap;
         }
 
-        /* ─── Table Card ─────────────────────────────────────── */
+        /* Tablo kartı */
         .table-card {
             background: #fff;
             border-radius: 16px;
@@ -176,7 +176,7 @@
                 color: var(--text-main);
             }
 
-        /* ─── Tour Cell ──────────────────────────────────────── */
+        /* Tur hücresi */
         .tour-cell {
             display: flex;
             align-items: center;
@@ -225,7 +225,7 @@
             white-space: nowrap;
         }
 
-        /* ─── Badges ─────────────────────────────────────────── */
+        /* Rozetler */
         .badge-tour {
             display: inline-flex;
             align-items: center;
@@ -250,11 +250,6 @@
         .badge-limited {
             background: #fee2e2;
             color: #991b1b;
-        }
-
-        .badge-default {
-            background: #e0f2fe;
-            color: #075985;
         }
 
         .badge-status-active {
@@ -299,7 +294,7 @@
                 display: inline-block;
             }
 
-        /* ─── Stats ──────────────────────────────────────────── */
+        /* Satır içi bilgiler */
         .stat-pill {
             display: inline-flex;
             align-items: center;
@@ -319,7 +314,7 @@
             color: var(--navy);
         }
 
-        /* ─── Action Buttons ─────────────────────────────────── */
+        /* İşlem butonları */
         .action-group {
             display: flex;
             align-items: center;
@@ -371,7 +366,7 @@
             background: #fecaca;
         }
 
-        /* ─── Empty State ────────────────────────────────────── */
+        /* Boş durum */
         .empty-state {
             text-align: center;
             padding: 64px 24px;
@@ -395,7 +390,7 @@
             color: var(--text-muted);
         }
 
-        /* ─── Summary Stats Cards ────────────────────────────── */
+        /* Özet istatistikler */
         .stats-row {
             margin-bottom: 24px;
         }
@@ -461,7 +456,7 @@
             color: var(--text-muted);
         }
 
-        /* ─── Delete Modal ───────────────────────────────────── */
+        /* Silme onay penceresi */
         .delete-modal-icon {
             width: 64px;
             height: 64px;
@@ -475,12 +470,11 @@
             color: var(--danger);
         }
 
-        /* ─── Scrollable table on small screens ──────────────── */
         .table-responsive-scroll {
             overflow-x: auto;
         }
 
-        /* ─── Table row entrance animation ──────────────────── */
+        /* Satır giriş animasyonu */
         @@keyframes rowSlide {
             from {
                 opacity: 0;
@@ -539,25 +533,25 @@
     </style>
 }
 
-<!-- ═══ PAGE HEADER ═══════════════════════════════════════════════════ -->
+<!-- Sayfa başlığı -->
 <div class="section-header">
     <div>
-        <p class="page-eyebrow">Management</p>
-        <h1 class="page-title">Tours</h1>
+        <p class="page-eyebrow">İçerik Yönetimi</p>
+        <h1 class="page-title">Turlar</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin" class="text-muted">Dashboard</a></li>
-                <li class="breadcrumb-item active text-muted">Tours</li>
+                <li class="breadcrumb-item text-muted">Yönetim Paneli</li>
+                <li class="breadcrumb-item active text-muted">Turlar</li>
             </ol>
         </nav>
     </div>
-    <a href="/admin/tours/create" class="btn-add-tour">
+    <a asp-controller="AdminTour" asp-action="CreateTour" class="btn-add-tour">
         <i class="bi bi-plus-lg"></i>
-        Add New Tour
+        Yeni Tur Ekle
     </a>
 </div>
 
-<!-- ═══ SUMMARY STATS ════════════════════════════════════════════════ -->
+<!-- Özet istatistikler -->
 @if (Model != null)
 {
     int totalTours = Model.Count;
@@ -571,7 +565,7 @@
                 <div class="stat-icon si-blue"><i class="bi bi-map-fill"></i></div>
                 <div>
                     <div class="stat-num">@totalTours</div>
-                    <div class="stat-lbl">Total Tours</div>
+                    <div class="stat-lbl">Toplam Tur</div>
                 </div>
             </div>
         </div>
@@ -580,7 +574,7 @@
                 <div class="stat-icon si-green"><i class="bi bi-check-circle-fill"></i></div>
                 <div>
                     <div class="stat-num">@activeTours</div>
-                    <div class="stat-lbl">Active Tours</div>
+                    <div class="stat-lbl">Yayında</div>
                 </div>
             </div>
         </div>
@@ -589,60 +583,60 @@
                 <div class="stat-icon si-yellow"><i class="bi bi-pause-circle-fill"></i></div>
                 <div>
                     <div class="stat-num">@passiveTours</div>
-                    <div class="stat-lbl">Passive Tours</div>
+                    <div class="stat-lbl">Yayında Değil</div>
                 </div>
             </div>
         </div>
         <div class="col-6 col-lg-3">
             <div class="stat-card">
-                <div class="stat-icon si-red"><i class="bi bi-currency-dollar"></i></div>
+                <div class="stat-icon si-red"><i class="bi bi-cash-coin"></i></div>
                 <div>
-                    <div class="stat-num">$@avgPrice.ToString("N0")</div>
-                    <div class="stat-lbl">Avg. Price</div>
+                    <div class="stat-num">@avgPrice.ToString("N0") ₺</div>
+                    <div class="stat-lbl">Ortalama Fiyat</div>
                 </div>
             </div>
         </div>
     </div>
 }
 
-<!-- ═══ FILTER BAR ═══════════════════════════════════════════════════ -->
+<!-- Filtre çubuğu -->
 <div class="filter-bar">
     <div class="filter-search">
         <i class="bi bi-search"></i>
-        <input type="text" id="tableSearch" placeholder="Search tours…" autocomplete="off" />
+        <input type="text" id="tableSearch" placeholder="Tur ara" autocomplete="off" />
     </div>
 
     <select class="filter-select" id="statusFilter">
-        <option value="">All Status</option>
-        <option value="active">Active</option>
-        <option value="passive">Passive</option>
+        <option value="">Tüm Durumlar</option>
+        <option value="active">Yayında</option>
+        <option value="passive">Yayında Değil</option>
     </select>
 
     <select class="filter-select" id="badgeFilter" style="min-width:140px;">
-        <option value="">All Badges</option>
-        <option value="popular">Popular</option>
-        <option value="new">New</option>
-        <option value="limited">Limited</option>
+        <option value="">Tüm Rozetler</option>
+        <option value="popular">Popüler</option>
+        <option value="new">Yeni</option>
+        <option value="limited">Sınırlı</option>
     </select>
 
     <span class="filter-count" id="filterCount">
-        Showing <strong id="visibleCount">@(Model?.Count ?? 0)</strong> of <strong>@(Model?.Count ?? 0)</strong> tours
+        Toplam <strong>@(Model?.Count ?? 0)</strong> turdan <strong id="visibleCount">@(Model?.Count ?? 0)</strong> tanesi gösteriliyor
     </span>
 </div>
 
-<!-- ═══ TABLE CARD ════════════════════════════════════════════════════ -->
+<!-- Tablo -->
 <div class="table-card">
     <div class="table-responsive-scroll">
         <table class="tours-table" id="toursTable">
             <thead>
                 <tr>
-                    <th style="width:280px;">Tour</th>
-                    <th>Badge</th>
-                    <th>Duration</th>
-                    <th>Capacity</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th style="text-align:center;">Actions</th>
+                    <th style="width:280px;">Tur</th>
+                    <th>Rozet</th>
+                    <th>Süre</th>
+                    <th>Kapasite</th>
+                    <th>Fiyat</th>
+                    <th>Durum</th>
+                    <th style="text-align:center;">İşlemler</th>
                 </tr>
             </thead>
             <tbody id="toursTableBody">
@@ -652,8 +646,8 @@
                         <td colspan="7">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="bi bi-map"></i></div>
-                                <div class="empty-title">No tours found</div>
-                                <p class="empty-sub">Get started by adding your first tour.</p>
+                                <div class="empty-title">Henüz tur yok</div>
+                                <p class="empty-sub">İlk turunuzu ekleyerek başlayın.</p>
                             </div>
                         </td>
                     </tr>
@@ -663,22 +657,30 @@
                     @foreach (var tour in Model)
                     {
                         string statusClass = tour.IsStatus ? "active" : "passive";
-                        string statusLabel = tour.IsStatus ? "Active" : "Passive";
 
-                        string badgeCss = (tour.Badge?.ToLower()) switch
+                        // Rozet degeri veritabaninda Ingilizce tutulur; ekranda ceviri anahtariyla gosterilir
+                        string badgeValue = (tour.Badge ?? "").Trim().ToLowerInvariant() switch
                         {
-                            "popular" => "badge-popular",
-                            "new" => "badge-new",
-                            "limited" => "badge-limited",
-                            _ => "badge-default"
+                            "popular" => "Popular",
+                            "new" => "New",
+                            "limited" => "Limited",
+                            _ => null
+                        };
+
+                        string badgeCss = badgeValue switch
+                        {
+                            "Popular" => "badge-popular",
+                            "New" => "badge-new",
+                            "Limited" => "badge-limited",
+                            _ => ""
                         };
 
                         <tr data-status="@statusClass"
-                            data-badge="@(tour.Badge?.ToLower())"
+                            data-badge="@(badgeValue?.ToLowerInvariant())"
                             data-title="@tour.Title?.ToLower()"
                             data-tour-id="@tour.TourId">
 
-                            <!-- Tour Info -->
+                            <!-- Tur bilgisi -->
                             <td>
                                 <div class="tour-cell">
                                     @if (!string.IsNullOrWhiteSpace(tour.CoverImageUrl))
@@ -704,27 +706,27 @@
                                 </div>
                             </td>
 
-                            <!-- Badge -->
+                            <!-- Rozet -->
                             <td>
-                                @if (!string.IsNullOrWhiteSpace(tour.Badge))
+                                @if (badgeValue != null)
                                 {
-                                    <span class="badge-tour @badgeCss">@tour.Badge</span>
+                                    <span class="badge-tour @badgeCss">@L["Badge_" + badgeValue]</span>
                                 }
                                 else
                                 {
-                                    <span class="text-muted" style="font-size:12px;">—</span>
+                                    <span class="text-muted" style="font-size:12px;">-</span>
                                 }
                             </td>
 
-                            <!-- Duration -->
+                            <!-- Süre -->
                             <td>
                                 <span class="stat-pill">
                                     <i class="bi bi-calendar3"></i>
-                                    @tour.DayCount Day@(tour.DayCount != 1 ? "s" : "")
+                                    @tour.DayCount Gün
                                 </span>
                             </td>
 
-                            <!-- Capacity -->
+                            <!-- Kapasite -->
                             <td>
                                 <span class="stat-pill">
                                     <i class="bi bi-people-fill"></i>
@@ -732,40 +734,40 @@
                                 </span>
                             </td>
 
-                            <!-- Price -->
+                            <!-- Fiyat -->
                             <td>
-                                <span class="price-cell">$@tour.Price.ToString("N2")</span>
+                                <span class="price-cell">@tour.Price.ToString("N2") ₺</span>
                             </td>
 
-                            <!-- Status -->
+                            <!-- Durum -->
                             <td>
                                 @if (tour.IsStatus)
                                 {
-                                    <span class="badge-status-active">Active</span>
+                                    <span class="badge-status-active">Yayında</span>
                                 }
                                 else
                                 {
-                                    <span class="badge-status-passive">Passive</span>
+                                    <span class="badge-status-passive">Yayında Değil</span>
                                 }
                             </td>
 
-                            <!-- Actions -->
+                            <!-- İşlemler -->
                             <td>
                                 <div class="action-group" style="justify-content:center;">
-                                    <a href="/admin/tours/details/@tour.TourId"
+                                    <a asp-controller="AdminReview" asp-action="ReviewList"
                                        class="btn-action btn-view"
-                                       title="View Details"
+                                       title="Yorumları Gör"
                                        data-bs-toggle="tooltip">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
-                                    <a href="/admintour/updatetour/@tour.TourId"
+                                    <a asp-controller="AdminTour" asp-action="UpdateTour" asp-route-id="@tour.TourId"
                                        class="btn-action btn-edit"
-                                       title="Edit Tour"
+                                       title="Turu Düzenle"
                                        data-bs-toggle="tooltip">
                                         <i class="bi bi-pencil-fill"></i>
                                     </a>
                                     <button class="btn-action btn-delete"
-                                            title="Delete Tour"
+                                            title="Turu Sil"
                                             data-bs-toggle="tooltip"
                                             onclick="openDeleteModal('@tour.TourId', '@Html.Raw(tour.Title?.Replace("'", "\\'"))')">
                                         <i class="bi bi-trash-fill"></i>
@@ -780,7 +782,7 @@
     </div>
 </div>
 
-<!-- ═══ DELETE CONFIRMATION MODAL ════════════════════════════════════ -->
+<!-- Silme onay penceresi -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content" style="border-radius:16px; border:none; box-shadow:var(--shadow-lg);">
@@ -788,25 +790,25 @@
                 <div class="delete-modal-icon">
                     <i class="bi bi-trash3-fill"></i>
                 </div>
-                <h5 style="font-weight:700; color:var(--navy); margin-bottom:8px;">Delete Tour?</h5>
+                <h5 style="font-weight:700; color:var(--navy); margin-bottom:8px;">Tur silinsin mi?</h5>
                 <p style="font-size:14px; color:var(--text-muted); margin-bottom:6px;">
-                    You are about to permanently delete:
+                    Şu tur kalıcı olarak silinecek:
                 </p>
-                <p style="font-size:14px; font-weight:600; color:var(--navy); margin-bottom:20px;" id="deleteTourName">—</p>
+                <p style="font-size:14px; font-weight:600; color:var(--navy); margin-bottom:20px;" id="deleteTourName">-</p>
                 <p style="font-size:12.5px; color:#ef4444; margin-bottom:24px;">
-                    This action cannot be undone.
+                    Bu işlem geri alınamaz.
                 </p>
                 <div class="d-flex gap-2">
                     <button type="button"
                             class="btn btn-light flex-fill"
                             style="border-radius:10px; font-weight:600; font-family:'DM Sans',sans-serif;"
                             data-bs-dismiss="modal">
-                        Cancel
+                        Vazgeç
                     </button>
                     <a href="#" id="deleteConfirmBtn"
                        class="btn btn-danger flex-fill"
                        style="border-radius:10px; font-weight:600; font-family:'DM Sans',sans-serif;">
-                        Delete
+                        Sil
                     </a>
                 </div>
             </div>
@@ -816,12 +818,11 @@
 
 @section Scripts {
     <script>
-        // ── Init tooltips ──────────────────────────────────────────────────
         document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
             new bootstrap.Tooltip(el, { trigger: 'hover' });
         });
 
-        // ── Delete Modal ───────────────────────────────────────────────────
+        // Silme onayi
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
 
         function openDeleteModal(tourId, tourName) {
@@ -830,7 +831,7 @@
             deleteModal.show();
         }
 
-        // ── Live Filtering ─────────────────────────────────────────────────
+        // Tabloda anlik filtreleme
         const searchInput    = document.getElementById('tableSearch');
         const statusFilter   = document.getElementById('statusFilter');
         const badgeFilter    = document.getElementById('badgeFilter');
@@ -864,7 +865,6 @@
 
             visibleCount.textContent = visible;
 
-            // Empty state
             let emptyRow = tableBody.querySelector('tr.no-results');
             if (visible === 0 && rows.length > 0) {
                 if (!emptyRow) {
@@ -874,8 +874,8 @@
                         <td colspan="7">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="bi bi-funnel"></i></div>
-                                <div class="empty-title">No results match your filters</div>
-                                <p class="empty-sub">Try adjusting your search or filters.</p>
+                                <div class="empty-title">Filtreyle eşleşen tur yok</div>
+                                <p class="empty-sub">Aramanızı veya filtreleri değiştirmeyi deneyin.</p>
                             </div>
                         </td>`;
                     tableBody.appendChild(emptyRow);
@@ -890,5 +890,3 @@
         badgeFilter.addEventListener('change', applyFilters);
     </script>
 }
-
-

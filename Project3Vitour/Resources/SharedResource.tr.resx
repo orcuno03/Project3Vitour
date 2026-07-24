@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Admin panel: sol menu -->
+  <data name="Menu_ContentManagement"><value>İçerik Yönetimi</value></data>
+  <data name="Menu_Tours"><value>Turlar</value></data>
+  <data name="Menu_Categories"><value>Kategoriler</value></data>
+  <data name="Menu_Destinations"><value>Lokasyonlar</value></data>
+  <data name="Menu_TourPlans"><value>Tur Programları</value></data>
+  <data name="Menu_TourImages"><value>Tur Galerisi</value></data>
+  <data name="Menu_Operations"><value>Operasyon</value></data>
+  <data name="Menu_Reservations"><value>Rezervasyonlar</value></data>
+  <data name="Menu_Reviews"><value>Yorumlar</value></data>
+  <data name="Menu_Site"><value>Site</value></data>
+  <data name="Menu_ViewSite"><value>Siteyi Görüntüle</value></data>
+  <data name="Menu_Logout"><value>Çıkış Yap</value></data>
+
+  <!-- Admin panel: ust cubuk -->
+  <data name="Panel_Title"><value>Yönetim Paneli</value></data>
+  <data name="Topbar_Search"><value>Panelde ara…</value></data>
+  <data name="Topbar_Admin"><value>Yönetici</value></data>
+  <data name="Topbar_SuperAdmin"><value>Süper Yönetici</value></data>
+  <data name="Topbar_Profile"><value>Profilim</value></data>
+  <data name="Topbar_Settings"><value>Ayarlar</value></data>
+  <data name="Topbar_Language"><value>Dil</value></data>
+
+  <!-- Site: tur listeleme -->
+  <data name="Tour_Showing"><value>Gösteriliyor</value></data>
+  <data name="Tour_TotalOf"><value>toplam {0} tur</value></data>
+  <data name="Tour_NoTours"><value>Yayında tur bulunmuyor.</value></data>
+  <data name="Tour_Days"><value>Gün</value></data>
+  <data name="Tour_People"><value>Kişi</value></data>
+  <data name="Tour_Price"><value>Fiyat</value></data>
+  <data name="Tour_NoLocation"><value>Lokasyon belirtilmemiş</value></data>
+  <data name="Tour_ReviewCount"><value>Değerlendirme</value></data>
+  <data name="Tour_NoReviews"><value>Henüz değerlendirme yok</value></data>
+
+  <!-- Site: tur detay sekmeleri -->
+  <data name="Tab_Information"><value>Bilgiler</value></data>
+  <data name="Tab_TourPlan"><value>Tur Programı</value></data>
+  <data name="Tab_Location"><value>Konum</value></data>
+  <data name="Tab_Reviews"><value>Yorumlar</value></data>
+  <data name="Tab_Gallery"><value>Galeri</value></data>
+
+  <!-- Site: tur detay icerik -->
+  <data name="Detail_About"><value>Tur Hakkında</value></data>
+  <data name="Detail_DayByDay"><value>Gün Gün Program</value></data>
+  <data name="Detail_Day"><value>GÜN</value></data>
+  <data name="Detail_Duration"><value>Süre</value></data>
+  <data name="Detail_Category"><value>Kategori</value></data>
+  <data name="Detail_Capacity"><value>Kapasite</value></data>
+  <data name="Detail_Reserved"><value>Dolu</value></data>
+  <data name="Detail_PerPerson"><value>kişi başı</value></data>
+  <data name="Detail_SeatsLeft"><value>Son {0} kişilik yer kaldı</value></data>
+  <data name="Detail_Full"><value>Kontenjan doldu</value></data>
+  <data name="Detail_BookNow"><value>Rezervasyon Yap</value></data>
+  <data name="Detail_NoPlan"><value>Bu tur için henüz program tanımlanmamış.</value></data>
+  <data name="Detail_NoPhotos"><value>Bu tura ait fotoğraf henüz eklenmemiş.</value></data>
+  <data name="Detail_NoReviewsYet"><value>Bu tura henüz yorum yapılmamış. İlk yorumu siz yazın!</value></data>
+  <data name="Detail_TourGallery"><value>Tur Galerisi</value></data>
+  <data name="Detail_MapMissing"><value>Bölge haritası henüz yüklenmemiş.</value></data>
+
+  <!-- Puanlama parametreleri -->
+  <data name="Score_Guide"><value>Rehber</value></data>
+  <data name="Score_Accommodation"><value>Konaklama</value></data>
+  <data name="Score_Transport"><value>Ulaşım</value></data>
+  <data name="Score_Comfort"><value>Konfor</value></data>
+
+  <!-- Site: ust menu -->
+  <data name="Site_Title"><value>Vitour - Tur Paketleri</value></data>
+  <data name="Nav_Home"><value>Ana Sayfa</value></data>
+  <data name="Nav_Tours"><value>Turlar</value></data>
+  <data name="Nav_AllTours"><value>Tüm Turlar</value></data>
+  <data name="Nav_Categories"><value>Kategoriler</value></data>
+  <data name="Nav_Destinations"><value>Lokasyonlar</value></data>
+  <data name="Header_FollowUs"><value>Bizi Takip Edin</value></data>
+  <data name="Header_Search"><value>Tur ara</value></data>
+
+  <!-- Site: alt bilgi -->
+  <data name="Footer_About"><value>Dünyayı keşfetmeniz için güvenli, konforlu ve profesyonel tur hizmetleri sunuyoruz.</value></data>
+  <data name="Footer_QuickLinks"><value>Hızlı Erişim</value></data>
+  <data name="Footer_Categories"><value>Kategoriler</value></data>
+  <data name="Footer_Gallery"><value>Galeri</value></data>
+  <data name="Footer_Rights"><value>Tüm hakları saklıdır.</value></data>
+
+  <!-- Site: sayfa basligi (breadcrumb) -->
+  <data name="Breadcrumb_Home"><value>Ana Sayfa</value></data>
+  <data name="Breadcrumb_Tours"><value>Turlar</value></data>
+
+  <!-- Site: tur listeleme filtresi -->
+  <data name="Tour_AllCategories"><value>Tüm Kategoriler</value></data>
+  <data name="Tour_FilteredBy"><value>Kategori: {0}</value></data>
+  <data name="Tour_ClearFilter"><value>Filtreyi Temizle</value></data>
+
+  <!-- Site: tur detay konum ve yorum -->
+  <data name="Detail_LocationTitle"><value>Bölge Haritası</value></data>
+  <data name="Detail_MapNote"><value>Bu tura ait bölge haritası görseli, yönetim panelinden eklendiğinde burada gösterilecektir.</value></data>
+  <data name="Detail_AverageScore"><value>Ortalama Puan</value></data>
+  <data name="Detail_WriteReview"><value>Yorum Yap</value></data>
+
+  <!-- Site: yorum formu -->
+  <data name="Review_FormTitle"><value>Deneyiminizi Paylaşın</value></data>
+  <data name="Review_FormNote"><value>Turu değerlendirin; yorumunuz onaylandıktan sonra yayınlanır.</value></data>
+  <data name="Review_NameSurname"><value>Ad Soyad</value></data>
+  <data name="Review_Detail"><value>Yorumunuz</value></data>
+  <data name="Review_Submit"><value>Yorumu Gönder</value></data>
+  <data name="Review_Received"><value>Yorumunuz alındı. Onaylandıktan sonra yayınlanacaktır.</value></data>
+  <data name="Review_Invalid"><value>Lütfen tüm alanları doldurun ve dört başlık için de puan verin.</value></data>
+
+  <!-- Tur rozetleri -->
+  <data name="Badge_Popular"><value>Popüler</value></data>
+  <data name="Badge_New"><value>Yeni</value></data>
+  <data name="Badge_Limited"><value>Sınırlı</value></data>
+</root>
