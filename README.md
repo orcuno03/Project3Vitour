@@ -149,11 +149,16 @@ Uygulama başladığında tarayıcınızda `https://localhost:7048` veya `http:/
 
 | Ziyaretçi Vitrin Sayfası | Tur Detay & Günlük Plan |
 | :---: | :---: |
-| <!-- GÖRSEL 1 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* | <!-- GÖRSEL 2 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* |
+<img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/e06cf8dd-9d7d-4aa7-a3fa-69386960376c" />
+<img width="1350" height="1935" alt="localhost_7257_Tour_TourDetail_660000000000000000000004" src="https://github.com/user-attachments/assets/a3736bd5-5a18-4fc4-ad1a-66f4414febf0" />
+<img width="1918" height="900" alt="image" src="https://github.com/user-attachments/assets/253643eb-3222-4649-99e2-e51d90aa0e02" />
+<img width="1639" height="793" alt="image" src="https://github.com/user-attachments/assets/22d16df4-5848-49fe-8af9-90adc9e66457" />
 
 | Admin Dashboard | Rezervasyon & Raporlama |
 | :---: | :---: |
-| <!-- GÖRSEL 3 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* | <!-- GÖRSEL 4 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* |
+| <img width="1903" height="831" alt="image" src="https://github.com/user-attachments/assets/fcaeb933-bde2-4e9c-9b15-ae1467cc4839" /> |
+| <img width="1900" height="875" alt="image" src="https://github.com/user-attachments/assets/5ff5e5e0-5568-439c-a097-aae499eacbb1" /> |
+| <img width="1898" height="856" alt="image" src="https://github.com/user-attachments/assets/16e78d80-0536-4967-8682-6f01979fc77c" /> |
 
 ---
 
