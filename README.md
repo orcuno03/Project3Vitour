@@ -145,15 +145,15 @@ Uygulama başladığında tarayıcınızda `https://localhost:7048` veya `http:/
 
 ## 📸 Ekran Görüntüleri
 
-> *Not: Ekran görüntülerini repo içerisindeki bir `assets` klasörüne ekleyip aşağıdaki bağlantıları güncelleyebilirsiniz.*
+*Aşağıdaki alanlara kendi ekran görüntülerinizi sürükleyip bırakarak yükleyebilirsiniz:*
 
 | Ziyaretçi Vitrin Sayfası | Tur Detay & Günlük Plan |
 | :---: | :---: |
-| ![Vitrin](https://via.placeholder.com/600x350?text=Vitour+Ana+Sayfa) | ![Tur Detay](https://via.placeholder.com/600x350?text=Tur+Detay+ve+Plan) |
+| <!-- GÖRSEL 1 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* | <!-- GÖRSEL 2 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* |
 
 | Admin Dashboard | Rezervasyon & Raporlama |
 | :---: | :---: |
-| ![Admin Dashboard](https://via.placeholder.com/600x350?text=Admin+Dashboard) | ![Rezervasyon](https://via.placeholder.com/600x350?text=Rezervasyon+Yonetimi) |
+| <!-- GÖRSEL 3 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* | <!-- GÖRSEL 4 BURAYA --> *Görsel Eklemek İçin GitHub Düzenleme Ekranında Resim Sürükleyin* |
 
 ---
 
