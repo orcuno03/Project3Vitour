@@ -167,7 +167,7 @@ Uygulama başladığında tarayıcınızda `https://localhost:7048` veya `http:/
 Geliştirici hakkında detaylı bilgi almak veya iletişime geçmek için:
 
 * **GitHub:** [@orcuno03](https://github.com/orcuno03)
-* **LinkedIn:** [Orçun]([https://linkedin.com](https://www.linkedin.com/in/orcunozsen/))
+* **LinkedIn:** [Orçun](https://www.linkedin.com/in/orcunozsen/)
 
 ---
 
