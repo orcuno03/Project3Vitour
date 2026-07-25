@@ -153,6 +153,8 @@ Uygulama başladığında tarayıcınızda `https://localhost:7048` veya `http:/
 <img width="1350" height="1935" alt="localhost_7257_Tour_TourDetail_660000000000000000000004" src="https://github.com/user-attachments/assets/a3736bd5-5a18-4fc4-ad1a-66f4414febf0" />
 <img width="1918" height="900" alt="image" src="https://github.com/user-attachments/assets/253643eb-3222-4649-99e2-e51d90aa0e02" />
 <img width="1639" height="793" alt="image" src="https://github.com/user-attachments/assets/22d16df4-5848-49fe-8af9-90adc9e66457" />
+<img width="1350" height="2650" alt="localhost_7257_Tour_TourList" src="https://github.com/user-attachments/assets/ed3ba365-df9a-45a3-befc-d7f56598cc76" />
+
 
 | Admin Dashboard | Rezervasyon & Raporlama |
 | :---: | :---: |
